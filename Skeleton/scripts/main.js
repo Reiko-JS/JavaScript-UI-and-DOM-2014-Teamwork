@@ -1,9 +1,24 @@
 define(function(require) {
     var GameEngine = require('scripts/Controllers/GameEngine.js');
 
-    var context = null; // TODO
+    var gameFieldOptions = {
+        containerId: 'game-field',
+        width: 1000,
+        height: 500,
+        colors: {
+            brown: '#673720',
+            darkBrown: '#401c10'
+        },
+        imgSrc: 'images/nin.png'
+    };
 
-    var gameEngine = new GameEngine(context);
+    var stage = new Kinetic.Stage({
+        container: 'game-field',
+        width: gameFieldOptions.width,
+        height: gameFieldOptions.height
+    });
+
+    var gameEngine = new GameEngine(stage, gameFieldOptions);
     gameEngine.startGame();
 
     // That's all. Do not touch here...
