@@ -1,35 +1,40 @@
-define(function(require) {
+define(function (require) {
+    'use strict';
+    var Fruit = require('./Fruit.js'),
+        Utility = require('./../Helper/Utility.js'),
+        fruits = [  // Fruit - points
+            {
+                type: 'orange',
+                points: 20
+            },
+            {
+                type: 'apple',
+                points: 30
+            },
+            {
+                type: 'watermelon',
+                points: 30
+            }
+//            ['orange', 20],
+//            ['apple', 30],
+//            [ /* ... */ ]
+        ];
 
-    var Fruit = require('./Fruit.js');
+    function getRandomFruit(coordinateBoundaries) {
+        var utility = new Utility(),
+            randomFruit = fruits[utility.getRandomNumber(0, fruits.length)],
+            fruitType = randomFruit.type,
+            fruitPoints =  randomFruit.points,
+            fruitDefaultImage = fruitType + '.png',
+            fruitHitImage = fruitType + '-hit.png';
 
-    // Fruit - points
-    var fruits = [
-        ['orange', 20],
-        ['apple', 30],
-        [ /* ... */ ]
-    ];
-
-    function getRandomFruit() {
-        var fruitType = null;
-        var fruitPoints = null;
+        // ...
+        var randomCoordinates = utility.getRandomCoords(coordinateBoundaries),
+            randomDirectory = utility.getRandomDirection(randomCoordinates, coordinateBoundaries);
 
         // ...
 
-        var fruitDefaultImage = fruitType + '.png';
-        var fruitHitImage = fruitType + '-hit.png';
-
-        // ...
-
-        var randomX = null;
-        var randomY = null;
-
-        // ...
-
-        var randomDirectory = null;
-
-        // ...
-
-        return new Fruit(randomX, randomY, fruitDefaultImage, fruitHitImage, fruitPoints);
+        return new Fruit(randomCoordinates.x, randomCoordinates.y, fruitDefaultImage, fruitHitImage, fruitPoints);
     }
 
     return {

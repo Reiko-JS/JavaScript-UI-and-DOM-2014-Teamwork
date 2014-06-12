@@ -1,31 +1,35 @@
-define(function(require) {
-
-    var FruitDrawer = require('./FruitDrawer.js');
-    var Background = require('../Models/Background.js');
-    var MouseEventHandler = require('./MouseEventHandler.js');
-    var CollisionDispatcher = require('./CollisionDispatcher.js');
+define(function (require) {
+    'use strict';
+    /*global window */
+    var FruitDrawer = require('./FruitDrawer.js'),
+        Background = require('../Models/Background.js'),
+        MouseEventHandler = require('./MouseEventHandler.js'),
+        CollisionDispatcher = require('./CollisionDispatcher.js');
 
     // All works is done here
 
     // Constructor
     function GameEngine(stage, gameFieldOptions) {
-        var background = new Background(stage, gameFieldOptions);
+        var background = new Background(stage, gameFieldOptions),
+            mouseEvents = new MouseEventHandler(),
+            fruitsContainer = [];
         background.draw();
-		var mouseEvents = new MouseEventHandler();
 
         attachEvents(mouseEvents);
         //fruitDrawer = new FruitDrawer(stage);
         // ...
     }
-	
-	function attachEvents(mouseEvents) {
+
+    function attachEvents(mouseEvents) {
         window.onmousemove = function (event) {
             mouseEvents.updateCoords(event, mouseEvents, 500);
         };
         window.onmousedown = function (event) {
             mouseEvents.mouseDown(event, mouseEvents);
         };
-        window.onmouseup = function (event) { mouseEvents.mouseUp(event, mouseEvents); };
+        window.onmouseup = function (event) {
+            mouseEvents.mouseUp(event, mouseEvents);
+        };
     }
 
     function addFruit() {
@@ -33,6 +37,7 @@ define(function(require) {
     }
 
     function generateFruit() {
+
     }
 
     function updateCanvas() {
@@ -50,7 +55,7 @@ define(function(require) {
     }
 
     // Only this is public
-    GameEngine.prototype.startGame = function(speedInMs) {
+    GameEngine.prototype.startGame = function (speedInMs) {
     };
 
     return GameEngine;
