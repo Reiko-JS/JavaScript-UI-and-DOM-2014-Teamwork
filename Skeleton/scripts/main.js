@@ -29,9 +29,11 @@ define(function(require) {
     // var Utils = require('scripts/Helper/Utility.js') -> copies all script content from the linked file to this file and you can use it via variable Utils
 
     var Utils = require('scripts/Helper/Utility.js');
+    console.log(Utils);
     console.log(Utils.getRandomNumber(1, 2));
 
     var Fruit = require('scripts/Models/Fruit.js');
+    console.log(Fruit);
     console.log(new Fruit());
 
     var FruitFactory = require('scripts/Models/FruitFactory.js');
