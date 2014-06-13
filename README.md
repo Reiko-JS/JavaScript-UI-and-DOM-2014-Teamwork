@@ -1,4 +1,5 @@
-# JavaScript UI & DOM Team Projects - June - 2014 
+# JavaScript UI & DOM 
+# Team Projects - June - 2014 
 
 This document describes the teamwork assignment for Telerik Academy students in JavaScript UI & DOM course.
 
