@@ -21,7 +21,6 @@
 
     function movePoint(trajectory){
         return {
-
             x: trajectory.x + trajectory.radius * Math.cos(trajectory.angle / 180 * Math.PI) / 1.2,
             y: canvas.height - (trajectory.y + trajectory.radius * Math.sin(trajectory.angle / 180 * Math.PI) * 2)
         };

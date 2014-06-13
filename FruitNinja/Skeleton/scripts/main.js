@@ -1,4 +1,6 @@
 define(function (require) {
+    'use strict';
+
     var GameEngine = require('scripts/Controllers/GameEngine.js');
 
     var gameFieldOptions = {
@@ -12,32 +14,19 @@ define(function (require) {
         imgSrc: 'images/nin.png'
     };
 
+    var fruitLayerOptions = {
+        containerId: 'game-field',
+        canvasId: 'fruit-layer',
+        width: 1000,
+        height: 500,
+    };
+
     var stage = new Kinetic.Stage({
         container: 'game-field',
         width: gameFieldOptions.width,
         height: gameFieldOptions.height
     });
 
-    var gameEngine = new GameEngine(stage, gameFieldOptions);
+    var gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
     gameEngine.startGame();
-
-    // That's all. Do not touch here...
-
-    // ----------------------------------------------------------
-    // Test how works Require.js
-
-    // var Utils = require('scripts/Helper/Utility.js') -> copies all script content from the linked file to this file and you can use it via variable Utils
-
-    var Utils = require('scripts/Helper/Utility.js');
-    console.log(Utils);
-    console.log(Utils.getRandomNumber(1, 2));
-
-    var Fruit = require('scripts/Models/Fruit.js');
-    console.log(Fruit);
-    console.log(new Fruit());
-
-    //var FruitFactory = require('scripts/Models/FruitFactory.js');
-    //console.log(FruitFactory.getRandomFruit());
-
-    // ----------------------------------------------------------
 });

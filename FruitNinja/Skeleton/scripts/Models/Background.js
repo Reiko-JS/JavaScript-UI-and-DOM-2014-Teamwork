@@ -1,4 +1,5 @@
 define(function(require) {
+    'use strict';
 
     var _stage = null;
     var _gameFieldOptions = null;
@@ -11,6 +12,7 @@ define(function(require) {
         _canvas = document.getElementById(gameFieldOptions.containerId);
     }
 
+    // Use Kinetic.js
     Background.prototype.draw = function() {
         var gameFieldLayer = new Kinetic.Layer();
         var gameField = _gameFieldOptions;

@@ -1,3 +1,7 @@
 div#game-field {
     margin: 0 auto;
 }
+
+canvas#fruit-layer {
+    z-index: 1;
+}

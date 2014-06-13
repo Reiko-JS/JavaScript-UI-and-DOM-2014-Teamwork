@@ -3,73 +3,70 @@ define(function (require) {
 
     var FruitDrawer = require('./FruitDrawer.js'),
         Background = require('../Models/Background.js'),
+        FruitLayer = require('../Models/FruitLayer.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
         CollisionDispatcher = require('./CollisionDispatcher.js'),
         FruitFactory = require('../Models/FruitFactory.js');
 
+    var _mouseEventHandler = null;
+    var _collisionDispather = null;
+    var _fruitDrawer = null;
+
     var _boundingBox = null;
-    var _fruitsCollection = null;
 
     // Constructor
-    function GameEngine(stage, gameFieldOptions) {
+    function GameEngine(stage, gameFieldOptions, fruitLayerOptions) {
         var background = new Background(stage, gameFieldOptions),
-            mouseEventHandler = new MouseEventHandler(),
-            collisionDispather = new CollisionDispatcher(),
-            fruitDrawer = new FruitDrawer(stage);
+            fruitLayer = new FruitLayer(stage, fruitLayerOptions);
 
-        _fruitsCollection = [];
+        _mouseEventHandler = new MouseEventHandler();
+        _collisionDispather = new CollisionDispatcher();
+        _fruitDrawer = new FruitDrawer(stage, fruitLayer);
+
         _boundingBox = {
             x: {
-                min: 0,
-                max: gameFieldOptions.width
+                min: 100,
+                max: gameFieldOptions.width - 100
             },
             y: {
-                min: 0,
+                min: gameFieldOptions.heigh,
                 max: gameFieldOptions.height
             }
         };
 
-        //TODO fix the function
-        addFruit(_boundingBox, _fruitsCollection);
-
         background.draw();
-        attachMouseEvents(mouseEventHandler);
-    }
-    
-    function addFruit() {
-        var fruit = FruitFactory.getRandomFruit(_boundingBox);
-        console.log(fruit) // TODO
-        _fruitsCollection.push(fruit);
-
-        setTimeout(function () {
-            addFruit();
-        }, 5000); //10s (I think...)
+        attachMouseEvents();
     }
 
-    function attachMouseEvents(mouseEvents) {
+    function getRandomOfNumberFruits() {
+        var fruitsCollection = [];
+        for (var i = 0; i < Math.random() * 10; i++) {
+            fruitsCollection.push(FruitFactory.getRandomFruit(_boundingBox));
+        }
+
+        return fruitsCollection;
+    }
+
+    function updateCanvas() {
+        var fruitsCollection = getRandomOfNumberFruits();
+        _fruitDrawer.drawFruits(fruitsCollection);
+    }
+
+    function attachMouseEvents() {
         // OnMouseMove
         window.onmousemove = function (event) {
-            mouseEvents.updateCoords(event, mouseEvents, 500);
+            _mouseEventHandler.updateCoords(event, _mouseEventHandler, 500);
         };
 
         // OnMouseDown
         window.onmousedown = function (event) {
-            mouseEvents.mouseDown(event, mouseEvents);
+            _mouseEventHandler.mouseDown(event, _mouseEventHandler);
         };
 
         // OnMouseUp
         window.onmouseup = function (event) {
-            mouseEvents.mouseUp(event, mouseEvents);
+            _mouseEventHandler.mouseUp(event, _mouseEventHandler);
         };
-    }
-
-    function updateCanvas() {
-
-
-        // FruitDrawer
-        // MouseEventHandler
-        // CollisionDispatcher
-        // etc
     }
 
     function updateResult(points) {
@@ -80,6 +77,9 @@ define(function (require) {
 
     // Only this is public
     GameEngine.prototype.startGame = function (speedInMs) {
+        setInterval(function () {
+            updateCanvas();
+        }, 2000);
     };
 
     return GameEngine;

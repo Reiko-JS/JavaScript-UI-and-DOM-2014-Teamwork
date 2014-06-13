@@ -1,5 +1,6 @@
 define(function (require) {
-
+    'use strict';
+    
     function MouseEventHandler() {
         this.x = null;
         this.y = null;
