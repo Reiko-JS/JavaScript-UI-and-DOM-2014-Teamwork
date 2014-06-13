@@ -4,6 +4,7 @@ define(function (require) {
     function MouseEventHandler() {
         this.x = null;
         this.y = null;
+        this.path = [];
         this.isMouseDown = false;
     }
 
@@ -14,14 +15,20 @@ define(function (require) {
 
     MouseEventHandler.prototype.mouseUp = function (event, mouseObj) {
         mouseObj.isMouseDown = false;
+        this.path = [];
         //console.log(mouseObj.isMouseDown);
     };
 
     MouseEventHandler.prototype.updateCoords = function (event, mouseObj, updateInterval) {
         if (mouseObj.isMouseDown) {
             event = event || window.event;
-            mouseObj.x = event.clientX;
-            mouseObj.y = event.clientY;
+            if (mouseObj.path.length > 5) {
+                mouseObj.path.shift();
+            }
+
+            mouseObj.path.push({x: event.clientX, y: event.clientY});
+//            mouseObj.x = event.clientX;
+//            mouseObj.y = event.clientY;
             //console.dir(mouseObj.getCoords());
         }
     };

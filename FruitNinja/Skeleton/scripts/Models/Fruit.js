@@ -8,6 +8,7 @@ define(function (require) {
         this.direction = dir;
         this.angle = angle;
         this.factorY = facY;
+        this.isCut = false;
 
         this.defaultImageSrc = defaultImageSrc;
         this.hitImageSrc = hitImageSrc;
@@ -15,6 +16,7 @@ define(function (require) {
     }
 
     Fruit.prototype.cutOff = function () {
+        this.isCut = true;
         // Change image
         // Change direction
     };

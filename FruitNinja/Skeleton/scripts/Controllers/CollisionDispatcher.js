@@ -3,6 +3,8 @@ define(function (require) {
 
     var _context = null;
     var _gameElements = null;
+    var _fruitsWidth = 200;
+    var _fruitsHeight = 200;
 
     // Constructor
     function CollisionDispatcher(canvasCtx, gameElements) {
@@ -11,11 +13,22 @@ define(function (require) {
     }
 
     // mouseCoords is array of last 10-20 mouse coords that was on the screen { x, y }
-    function checkForCuttedOffFruits(mouseCoords) {
-        // Check every element from gameElements
-
+    CollisionDispatcher.prototype.checkForCuttedOffFruits = function checkForCuttedOffFruits(mouseCoords, fruit, x, y) {
+        console.log(mouseCoords.isMouseDown);
+        if (mouseCoords.isMouseDown) {
+            for (var j = 0; j < mouseCoords.path.length; j++) {
+                var mouseCoordinate = mouseCoords.path[j];
+                if (x <= mouseCoordinate.x &&
+                    (x + _fruitsWidth) > mouseCoordinate.x &&
+                    y >= mouseCoordinate.y &&
+                    (y + _fruitsHeight) > mouseCoordinate.y) {
+                    fruit.cutOff();
+                }
+            }
+        }
+        // Check every element from gameElements\
         // if mouse was over the fruit -> fruit.cutOff();
-    }
+    };
 
     return CollisionDispatcher;
 });

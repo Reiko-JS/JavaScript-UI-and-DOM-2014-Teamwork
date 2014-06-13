@@ -51,7 +51,8 @@ define(function (require) {
 
     function updateCanvas() {
         var fruitsCollection = getRandomOfNumberFruits();
-        _fruitDrawer.drawFruits(fruitsCollection);
+        //console.dir(_collisionDispather);
+        _fruitDrawer.drawFruits(fruitsCollection, _collisionDispather, _mouseEventHandler);
     }
 
     function attachMouseEvents() {

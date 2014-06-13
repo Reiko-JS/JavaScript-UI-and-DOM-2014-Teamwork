@@ -3,16 +3,16 @@ define(function (require) {
 
     var _context = null;
     var _fruitLayer = null;
-   // var _fruitCollection = null;
+    // var _fruitCollection = null;
 
     // Constructor
     function FruitDrawer(context, fruitLayer, fruitCollecion) {
         _context = context;
         _fruitLayer = fruitLayer.draw(); // draw and return an object
-      //  _fruitCollection = fruitCollecion;
+        //  _fruitCollection = fruitCollecion;
     }
 
-    FruitDrawer.prototype.drawFruits = function (_fruitCollection) {
+    FruitDrawer.prototype.drawFruits = function (_fruitCollection, _collisionDispather, _mouseEventHandler) {
         //console.log(_fruitCollection)
         //for (var i = 0; i < _fruitCollection.length; i++) {
         //    console.log(_fruitCollection[i].coords)
@@ -44,11 +44,13 @@ define(function (require) {
                 y: 0
             };
 
-        function drawPoint(ctx, x, y, r) {
+        function drawPoint(ctx, x, y, r, color) {
             ctx.beginPath();
+            ctx.fillStyle = color;
             ctx.arc(x, y, r, 0, 2 * Math.PI);
             ctx.fill();
         }
+
         function movePoint(trajectory, isLeft) {
             var trajRadius = isLeft ? trajectory.radius : -trajectory.radius;
 
@@ -72,14 +74,17 @@ define(function (require) {
 
             for (var i = 0; i < _fruitCollection.length; i++) {
                 var movedPoints = movePoint({
-                                                x: _fruitCollection[i].x,
-                                                y: center.y - 150,
-                                                radius: radius,
-                                                angle: angle,
-                                                factorY: _fruitCollection[i].factorY
-                                            }, _fruitCollection[i].direction);
+                    x: _fruitCollection[i].x,
+                    y: center.y - 150,
+                    radius: radius,
+                    angle: angle,
+                    factorY: _fruitCollection[i].factorY
+                }, _fruitCollection[i].direction);
 
-                drawPoint(ctx, movedPoints.x + i * 10, movedPoints.y, 50);
+                _collisionDispather.checkForCuttedOffFruits(_mouseEventHandler, _fruitCollection[i], movedPoints.x, movedPoints.y);
+
+                var color = _fruitCollection[i].isCut ? '#ccc' : '#000';
+                drawPoint(ctx, movedPoints.x + i * 10, movedPoints.y, 50, color);
 
                 if (movedPoints.y >= 500) {
                     _fruitCollection = null;
