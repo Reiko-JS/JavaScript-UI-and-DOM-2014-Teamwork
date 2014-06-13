@@ -1,8 +1,8 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     function getRandomNumber(min, max) {
-        return (Math.random() * (max - min) + min + 1) | 0; //remove +1 if "max" is not wanted value
+        return (Math.random() * (max - min + 1) + min) | 0; //remove +1 if "max" is not wanted value
     }
 
     function getRandomCoords(coordinateBoundaries) {
@@ -23,13 +23,13 @@ define(function(require) {
     // ...
 
     return {
-        getRandomNumber: function(min, max) {
+        getRandomNumber: function (min, max) {
             return getRandomNumber(min, max);
         },
-        getRandomCoords: function(coordinateBoundaries) {
+        getRandomCoords: function (coordinateBoundaries) {
             return getRandomCoords(coordinateBoundaries);
         },
-        getRandomDirection: function(coordinates, coordinateBoundaries) {
+        getRandomDirection: function (coordinates, coordinateBoundaries) {
             return getRandomDirection(coordinates, coordinateBoundaries);
         }
     };
