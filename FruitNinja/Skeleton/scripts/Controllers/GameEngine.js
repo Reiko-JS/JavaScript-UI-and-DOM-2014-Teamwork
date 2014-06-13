@@ -39,11 +39,11 @@ define(function (require) {
         };
     }
 
-    function addFruit(boundingBox, fruitsContainer) {
+    /*function addFruit(boundingBox, fruitsContainer) {
         var fruit = getRandomFruit(boundingBox);
         fruitsContainer.push(fruit);
         setTimeout(addFruit, 10000);
-    }
+    }*/
 
     //This is redundant
     /*function generateFruit() {
