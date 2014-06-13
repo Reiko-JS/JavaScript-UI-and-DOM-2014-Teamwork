@@ -29,4 +29,18 @@ define(function (require) {
 
     var gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
     gameEngine.startGame();
+    
+    /* ----------------------------------------------------------------------------- */
+
+    //function onButtonStart() {
+    //    if (gameEngine === undefined) {
+    //        var gameEngine = new GameEngine(stage, gameFieldOptions);
+    //        gameEngine.startGame();
+    //    }
+    //}
+
+    //var background = new Background(stage, gameFieldOptions);
+    //background.draw();
+
+    //document.getElementById("start").addEventListener("click", onButtonStart);
 });
