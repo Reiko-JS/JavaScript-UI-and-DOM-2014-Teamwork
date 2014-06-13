@@ -38,7 +38,7 @@ define(function (require) {
     
     function addFruit() {
         var fruit = FruitFactory.getRandomFruit(_boundingBox);
-        console.log(fruit)
+        console.log(fruit) // TODO
         _fruitsCollection.push(fruit);
 
         setTimeout(function () {
@@ -64,6 +64,8 @@ define(function (require) {
     }
 
     function updateCanvas() {
+
+
         // FruitDrawer
         // MouseEventHandler
         // CollisionDispatcher
