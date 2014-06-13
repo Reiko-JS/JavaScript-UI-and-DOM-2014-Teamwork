@@ -58,7 +58,8 @@ Each team will have to deliver a **public defens** of its work to the other stud
   * Demonstrate the application (very shortly)
   * Show the source code
   * Show the commits logs to confirm that team member have contributed.
-  * Optionally you might prepare a PowerPoint presentation (3-4 slides)
+  * Optionally you might prepare a PowerPoint presentation (3-4 slides) 
+
 Please be **strict in timing!** Be **well prepared** for presenting maximum of your work for minimum time. Bring your own laptop. Test it preliminary with the multimedia projector. Open the project assets beforehand to save time. You have 5 minutes, no more.
 
 ### Give Feedback about Your Teammates
