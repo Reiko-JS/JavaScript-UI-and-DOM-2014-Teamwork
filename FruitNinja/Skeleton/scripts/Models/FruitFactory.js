@@ -20,7 +20,7 @@ define(function (require) {
     ];
 
     function getRandomFruit(coordinateBoundaries) {
-        var randomFruit = fruits[Utility.getRandomNumber(0, fruits.length)];
+        var randomFruit = fruits[Utility.getRandomNumber(0, fruits.length - 1)];
         var fruitType = randomFruit.type;
         var fruitPoints = randomFruit.points,
             fruitDefaultImage = fruitType + '.png',

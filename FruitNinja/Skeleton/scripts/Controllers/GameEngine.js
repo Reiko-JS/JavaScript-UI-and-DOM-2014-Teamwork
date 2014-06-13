@@ -13,8 +13,14 @@ define(function (require) {
     function GameEngine(stage, gameFieldOptions) {
         var background = new Background(stage, gameFieldOptions),
             boundingBox = {
-                x: gameFieldOptions.width,
-                y: gameFieldOptions.height
+                x: {
+                    min: 0,
+                    max: gameFieldOptions.width
+                },
+                y: {
+                    min: 0,
+                    max: gameFieldOptions.height
+                }
             },
             mouseEvents = new MouseEventHandler(),
             fruitsContainer = [];
