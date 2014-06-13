@@ -1,3 +1,6 @@
+body{
+    background-color: #673720;
+}
 div#game-field {
     margin: 0 auto;
 }
