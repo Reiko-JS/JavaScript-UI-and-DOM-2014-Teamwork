@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     var GameEngine = require('scripts/Controllers/GameEngine.js');
 
     var gameFieldOptions = {
@@ -36,8 +36,8 @@ define(function(require) {
     console.log(Fruit);
     console.log(new Fruit());
 
-    var FruitFactory = require('scripts/Models/FruitFactory.js');
-    console.log(FruitFactory.getRandomFruit());
+    //var FruitFactory = require('scripts/Models/FruitFactory.js');
+    //console.log(FruitFactory.getRandomFruit());
 
     // ----------------------------------------------------------
 });

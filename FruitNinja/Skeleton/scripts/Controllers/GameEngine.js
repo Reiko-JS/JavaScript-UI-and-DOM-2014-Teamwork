@@ -50,7 +50,7 @@ define(function (require) {
     function addFruit(boundingBox, fruitsContainer) {
         var fruit = FruitFactory.getRandomFruit(boundingBox);
         fruitsContainer.push(fruit);
-        setTimeout(addFruit, 10000);
+        setTimeout(addFruit(boundingBox, fruitsContainer), 1000000);
     }
 
     //This is redundant
