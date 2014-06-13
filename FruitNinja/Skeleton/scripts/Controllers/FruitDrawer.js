@@ -1,4 +1,6 @@
-define(function(require) {
+define(function (require) {
+    'use strict'
+
     var _context = null;
 
     // Constructor
