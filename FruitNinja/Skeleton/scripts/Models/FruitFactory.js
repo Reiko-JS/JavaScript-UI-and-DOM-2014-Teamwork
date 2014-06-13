@@ -15,21 +15,20 @@ define(function (require) {
             points: 30
         }
         //            ['orange', 20],
-        //            ['apple', 30],
+        //            ['apple', 30], 
         //            [ /* ... */ ]
     ];
 
     function getRandomFruit(coordinateBoundaries) {
-        var utility = new Utility(),
-            randomFruit = fruits[utility.getRandomNumber(0, fruits.length)],
-            fruitType = randomFruit.type,
-            fruitPoints = randomFruit.points,
-            fruitDefaultImage = fruitType + '.png',
-            fruitHitImage = fruitType + '-hit.png';
+            var randomFruit = fruits[Utility.getRandomNumber(0, fruits.length)];
+            var fruitType = randomFruit.type;
+            var fruitPoints = randomFruit.points;
+            var fruitDefaultImage = fruitType + '.png';
+            var fruitHitImage = fruitType + '-hit.png';
 
         // ...
-        var randomCoordinates = utility.getRandomCoords(coordinateBoundaries),
-            randomDirection = utility.getRandomDirection(randomCoordinates, coordinateBoundaries);
+        var randomCoordinates = Utility.getRandomCoords(coordinateBoundaries),
+            randomDirection = Utility.getRandomDirection(randomCoordinates, coordinateBoundaries);
 
         // ...
 
