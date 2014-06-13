@@ -2,6 +2,7 @@ define(function (require) {
     'use strict';
 
     var FruitDrawer = require('./FruitDrawer.js'),
+        Utility = require('../Helper/Utility.js'),
         Background = require('../Models/Background.js'),
         FruitLayer = require('../Models/FruitLayer.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
@@ -40,7 +41,8 @@ define(function (require) {
 
     function getRandomOfNumberFruits() {
         var fruitsCollection = [];
-        for (var i = 0; i < Math.random() * 10; i++) {
+        var randomLength = Utility.getRandomNumber(0, 10);
+        for (var i = 0; i < randomLength; i++) {
             fruitsCollection.push(FruitFactory.getRandomFruit(_boundingBox));
         }
 
