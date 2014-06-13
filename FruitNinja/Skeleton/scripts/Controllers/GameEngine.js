@@ -11,8 +11,15 @@ define(function (require) {
     // Constructor
     function GameEngine(stage, gameFieldOptions) {
         var background = new Background(stage, gameFieldOptions),
+            boundingBox = {
+                x: gameFieldOptions.width,
+                y: gameFieldOptions.height
+            },
             mouseEvents = new MouseEventHandler(),
             fruitsContainer = [];
+
+        addFruit(boundingBox, fruitsContainer);
+
         background.draw();
 
         attachEvents(mouseEvents);
@@ -32,13 +39,16 @@ define(function (require) {
         };
     }
 
-    function addFruit() {
-
+    function addFruit(boundingBox, fruitsContainer) {
+        var fruit = getRandomFruit(boundingBox);
+        fruitsContainer.push(fruit);
+        setTimeout(addFruit, 10000);
     }
 
-    function generateFruit() {
+    //This is redundant
+    /*function generateFruit() {
 
-    }
+    }*/
 
     function updateCanvas() {
         // FruitDrawer
@@ -51,12 +61,10 @@ define(function (require) {
 
     }
 
-    function endGame() {
-    }
+    function endGame() {}
 
     // Only this is public
-    GameEngine.prototype.startGame = function (speedInMs) {
-    };
+    GameEngine.prototype.startGame = function (speedInMs) {};
 
     return GameEngine;
 });
