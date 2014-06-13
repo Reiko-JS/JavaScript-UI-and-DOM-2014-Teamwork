@@ -1,7 +1,8 @@
 define(function (require) {
     'use strict';
 
-    var GameEngine = require('scripts/Controllers/GameEngine.js');
+    var GameEngine = require('scripts/Controllers/GameEngine.js'),
+        Background = require('scripts/Models/Background.js');
 
     var gameFieldOptions = {
         containerId: 'game-field',
@@ -27,20 +28,16 @@ define(function (require) {
         height: gameFieldOptions.height
     });
 
-    var gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
-    gameEngine.startGame();
-    
-    /* ----------------------------------------------------------------------------- */
 
-    //function onButtonStart() {
-    //    if (gameEngine === undefined) {
-    //        var gameEngine = new GameEngine(stage, gameFieldOptions);
-    //        gameEngine.startGame();
-    //    }
-    //}
+    function onButtonStart() {
+        if (gameEngine === undefined) {
+            var gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
+            gameEngine.startGame();
+        }
+    }
 
     //var background = new Background(stage, gameFieldOptions);
     //background.draw();
 
-    //document.getElementById("start").addEventListener("click", onButtonStart);
+    document.getElementById("start").addEventListener("click", onButtonStart);
 });

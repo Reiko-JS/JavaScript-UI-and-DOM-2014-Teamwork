@@ -71,11 +71,9 @@ define(function (require) {
         };
     }
 
-    function updateResult(points) {
-    }
+    function updateResult(points) {}
 
-    function endGame() {
-    }
+    function endGame() {}
 
     // Only this is public
     GameEngine.prototype.startGame = function (speedInMs) {
