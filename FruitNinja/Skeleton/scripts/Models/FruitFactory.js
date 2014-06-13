@@ -33,7 +33,7 @@ define(function (require) {
 
         // ...
 
-        return new Fruit(randomCoordinates.x, randomCoordinates.y, fruitDefaultImage, fruitHitImage, fruitPoints);
+        return new Fruit(randomCoordinates, randomDirection, fruitDefaultImage, fruitHitImage, fruitPoints);
     }
 
     return {
