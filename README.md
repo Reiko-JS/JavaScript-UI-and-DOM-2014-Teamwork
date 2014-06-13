@@ -20,13 +20,13 @@ The project can be a game, web statistics or anything else. Sample applications:
 Please define and implement the following assets in your project:
 
 **Requirements for the JavaScript client application**
-    * Use the HTML5 canvas
-o   Or a Canvas framework like KineticJS, paper.js or other
-    * Use SVG 
-o   Or a SVG framework like Raphael JS or other
-    * Create animations
-o   Either for the canvas, SVG or both
-    * The application must work in the latest versions of the browsers: Google Chrome,  Mozilla Firefox, Internet Explorer 10/11, Opera and Apple Safari
+* Use the HTML5 canvas
+   * Or a Canvas framework like KineticJS, paper.js or other
+* Use SVG 
+   * Or a SVG framework like Raphael JS or other
+* Create animations
+   * Either for the canvas, SVG or both
+* The application must work in the latest versions of the browsers: Google Chrome,  Mozilla Firefox, Internet Explorer 10/11, Opera and Apple Safari
 Additional Requirements
     * Follow the best practices for producing high-quality code: correct naming, data encapsulation, strong cohesion and loose coupling
     * Use GIT as a source control system (GitHub preferable)
