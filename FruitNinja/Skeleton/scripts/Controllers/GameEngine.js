@@ -4,7 +4,8 @@ define(function (require) {
     var FruitDrawer = require('./FruitDrawer.js'),
         Background = require('../Models/Background.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
-        CollisionDispatcher = require('./CollisionDispatcher.js');
+        CollisionDispatcher = require('./CollisionDispatcher.js'),
+        FruitFactory = require('../Models/FruitFactory.js');
 
     // All works is done here
 
@@ -19,7 +20,7 @@ define(function (require) {
             fruitsContainer = [];
 
         //TODO fix the function
-        //addFruit(boundingBox, fruitsContainer);
+        addFruit(boundingBox, fruitsContainer);
 
         background.draw();
 
@@ -40,11 +41,11 @@ define(function (require) {
         };
     }
 
-    /*function addFruit(boundingBox, fruitsContainer) {
-        var fruit = getRandomFruit(boundingBox);
+    function addFruit(boundingBox, fruitsContainer) {
+        var fruit = FruitFactory.getRandomFruit(boundingBox);
         fruitsContainer.push(fruit);
         setTimeout(addFruit, 10000);
-    }*/
+    }
 
     //This is redundant
     /*function generateFruit() {
