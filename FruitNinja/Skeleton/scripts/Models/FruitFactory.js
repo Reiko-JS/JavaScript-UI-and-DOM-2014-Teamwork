@@ -1,8 +1,8 @@
-define(function(require) {
+define(function (require) {
     'use strict';
     var Fruit = require('./Fruit.js');
     var Utility = require('./../Helper/Utility.js');
-    
+
     var fruits = [ // Fruit - points
         {
             type: 'orange',
@@ -29,7 +29,7 @@ define(function(require) {
 
         // ...
         var randomCoordinates = utility.getRandomCoords(coordinateBoundaries),
-            randomDirectory = utility.getRandomDirection(randomCoordinates, coordinateBoundaries);
+            randomDirection = utility.getRandomDirection(randomCoordinates, coordinateBoundaries);
 
         // ...
 
