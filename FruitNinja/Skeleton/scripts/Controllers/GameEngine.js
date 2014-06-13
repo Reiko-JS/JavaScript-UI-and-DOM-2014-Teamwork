@@ -18,7 +18,8 @@ define(function (require) {
             mouseEvents = new MouseEventHandler(),
             fruitsContainer = [];
 
-        addFruit(boundingBox, fruitsContainer);
+        //TODO fix the function
+        //addFruit(boundingBox, fruitsContainer);
 
         background.draw();
 
