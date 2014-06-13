@@ -31,7 +31,7 @@ define(function (require) {
             randomDirection = Utility.getRandomDirection(randomCoordinates, coordinateBoundaries);
 
         // ...
-
+        console.log('fruit added: ' + fruitType);
         return new Fruit(randomCoordinates, randomDirection, fruitDefaultImage, fruitHitImage, fruitPoints);
     }
 

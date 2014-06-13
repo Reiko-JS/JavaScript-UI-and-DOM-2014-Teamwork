@@ -52,7 +52,7 @@ define(function (require) {
         fruitsContainer.push(fruit);
         setTimeout(function () {
             addFruit(boundingBox, fruitsContainer);
-        }, 10000);
+        }, 5000); //10s (I think...)
     }
 
     //This is redundant
