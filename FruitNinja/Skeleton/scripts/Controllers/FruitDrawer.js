@@ -65,7 +65,7 @@ define(function (require) {
 
             angle += 1.5;
 
-            if (angle >= 180) {
+            if (angle >= 200) {
                 _fruitCollection = [];
                 angle = 0;
             }

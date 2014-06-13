@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     var GameEngine = require('scripts/Controllers/GameEngine.js'),
@@ -28,10 +28,11 @@ define(function (require) {
         height: gameFieldOptions.height
     });
 
+    var gameEngine = null;
 
     function onButtonStart() {
-        if (gameEngine === undefined) {
-            var gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
+        if (!gameEngine) {
+            gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
             gameEngine.startGame();
         }
     }
