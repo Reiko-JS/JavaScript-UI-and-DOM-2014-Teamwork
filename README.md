@@ -21,4 +21,4 @@ The project can be a game, web statistics or anything else. Sample applications:
 * Bridge-Belote
 * Paint-like application – drawing shapes, lines, etc
 
-[Read more...](https://github.com/Reiko-JS/JavaScript-UI-and-DOM-2014-Teamwork/tree/master/Teamwork%20-%20Assignment)
+***[Read more...](https://github.com/Reiko-JS/JavaScript-UI-and-DOM-2014-Teamwork/tree/master/Teamwork%20-%20Assignment)***
