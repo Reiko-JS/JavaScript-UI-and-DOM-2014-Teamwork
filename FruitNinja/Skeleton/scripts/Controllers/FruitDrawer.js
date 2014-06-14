@@ -1,6 +1,7 @@
 define(function (require) {
     'use strict';
 
+    var FruitFactory = require('../Models/FruitFactory.js');
     var _context = null;
     var _fruitLayer = null;
     // var _fruitCollection = null;
@@ -109,6 +110,8 @@ define(function (require) {
                 window.requestAnimationFrame(frame);
 
         }
+
+        console.log(FruitFactory.fruits);
 
         var imageFruit = new Image(),
             imageFruitHit = new Image();
