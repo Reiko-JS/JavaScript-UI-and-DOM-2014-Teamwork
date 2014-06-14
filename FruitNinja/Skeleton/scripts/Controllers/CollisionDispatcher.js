@@ -3,8 +3,8 @@ define(function (require) {
 
     var _context = null;
     var _gameElements = null;
-    var _fruitsWidth = 200;
-    var _fruitsHeight = 200;
+    var _fruitsWidth = 100;
+    var _fruitsHeight = 100;
 
     // Constructor
     function CollisionDispatcher(canvasCtx, gameElements) {
@@ -20,7 +20,7 @@ define(function (require) {
                 var mouseCoordinate = mouseCoords.path[j];
                 if (x <= mouseCoordinate.x &&
                     (x + _fruitsWidth) > mouseCoordinate.x &&
-                    y >= mouseCoordinate.y &&
+                    y <= mouseCoordinate.y &&
                     (y + _fruitsHeight) > mouseCoordinate.y) {
                     fruit.cutOff();
                 }
