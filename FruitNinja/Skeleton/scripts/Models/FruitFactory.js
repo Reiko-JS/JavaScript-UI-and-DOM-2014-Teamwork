@@ -42,11 +42,12 @@ define(function (require) {
     }
 
     function getRandomFruit(coordsBoundaries) {
-        var randomFruit = fruits[Utility.getRandomNumber(0, fruits.length - 1)];
-        var fruitType = randomFruit.type;
+        var randomNumber = Utility.getRandomNumber(0, fruits.length - 1);
+        var randomFruit = fruits[randomNumber];
+        //var fruitType = randomFruit.type;
         var fruitPoints = randomFruit.points,
-            defImg = fruitType + '.png',
-            hitImg = fruitType + '-hit.png';
+            defImg = imagesFruits[randomNumber],
+            hitImg = imagesFruitsHit[randomNumber];
 
         var coords = Utility.getRandomCoords(coordsBoundaries),
             rndDir = Utility.getRandomDirection(coords, coordsBoundaries),

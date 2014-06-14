@@ -2,7 +2,7 @@ define(function (require) {
     'use strict';
 
     // Constructor
-    function Fruit(x, y, dir, angle, facY, defaultImageSrc, hitImageSrc, points) {
+    function Fruit(x, y, dir, angle, facY, defaultImage, hitImage, points) {
         this.x = x;
         this.y = y;
         this.direction = dir;
@@ -10,8 +10,8 @@ define(function (require) {
         this.factorY = facY;
         this.isCut = false;
 
-        this.defaultImageSrc = defaultImageSrc;
-        this.hitImageSrc = hitImageSrc;
+        this.defaultImageSrc = defaultImage;
+        this.hitImageSrc = hitImage;
         this.points = points;
     }
 

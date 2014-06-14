@@ -102,7 +102,7 @@ define(function (require) {
                 //var color = _fruitCollection[i].isCut ? '#ccc' : '#000';
                 //drawPoint(ctx, movedPoints.x + i * 10, movedPoints.y, 50, color);
 
-                var image = _fruitCollection[i].isCut ? imageFruitHit : imageFruit;
+                var image = _fruitCollection[i].isCut ? _fruitCollection[i].hitImageSrc : _fruitCollection[i].defaultImageSrc;
                 drawFruit(ctx, movedPoints.x + i * 10, movedPoints.y, image);
 
                 if (movedPoints.y >= 500) {
@@ -122,10 +122,12 @@ define(function (require) {
 
         //console.log(FruitFactory.getFruitsList());
 
+        frame();
+
         //TODO add images to the fruit object, preload images in FruitFactory, set images for fruits in FruitFactory
         //This is just a hardcoded example!
-        var imageFruit = new Image(),
-            imageFruitHit = new Image();
+        /*var imageFruit = new Image(),
+        imageFruitHit = new Image();
         imageFruit.src = 'images/watermelon.png';
         imageFruitHit.src = 'images/watermelon-hit.png';
 
@@ -142,7 +144,7 @@ define(function (require) {
 
         var ic = imageCollector(2, frame());
         imageFruit.onload = ic;
-        imageFruitHit.onload = ic;
+        imageFruitHit.onload = ic;*/
     };
 
     return FruitDrawer;
