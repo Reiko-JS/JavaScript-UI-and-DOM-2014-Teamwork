@@ -1,20 +1,25 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     var Fruit = require('./Fruit.js');
     var Utility = require('./../Helper/Utility.js');
 
     var fruits = [{
-            type: 'orange',
-            points: 20
-        }, {
-            type: 'coconut',
-            points: 30
-        }, {
-            type: 'watermelon',
-            points: 30
-        }
-    ];
+        type: 'orange',
+        points: 20
+    }, {
+        type: 'coconut',
+        points: 30
+    }, {
+        type: 'watermelon',
+        points: 30
+    }, {
+        type: 'pear',
+        points: 30
+    }, {
+        type: 'lime',
+        points: 30
+    }];
 
     var imagesFruits = [];
     var imagesFruitsHit = [];

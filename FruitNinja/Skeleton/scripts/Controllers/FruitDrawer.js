@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     var FruitFactory = require('../Models/FruitFactory.js');
@@ -13,7 +13,7 @@ define(function (require) {
         //  _fruitCollection = fruitCollecion;
     }
 
-    FruitDrawer.prototype.drawFruits = function (_fruitCollection, _collisionDispather, _mouseEventHandler) {
+    FruitDrawer.prototype.drawFruits = function(_fruitCollection, _collisionDispather, _mouseEventHandler) {
         //console.log(_fruitCollection)
         //for (var i = 0; i < _fruitCollection.length; i++) {
         //    console.log(_fruitCollection[i].coords)
@@ -67,6 +67,19 @@ define(function (require) {
         }
 
         var shouldRun = true;
+        var img = new Image();
+        img.src = 'http://www.tricedesigns.com/wp-content/uploads/2012/01/brush2.png'
+
+        function distanceBetween(point1, point2) {
+            return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+        }
+
+        function angleBetween(point1, point2) {
+            return Math.atan2(point2.x - point1.x, point2.y - point1.y);
+        }
+
+        ctx.lineJoin = ctx.lineCap = 'round';
+
 
         function frame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -87,14 +100,9 @@ define(function (require) {
                     factorY: _fruitCollection[i].factorY
                 }, _fruitCollection[i].direction);
 
-              //  console.log('--------------------------');
-                for (var z = 0; z < _mouseEventHandler.path.length; z++) {
-                 //   console.log(_mouseEventHandler.path[z]);
-                    ctx.beginPath();
-                    ctx.arc(_mouseEventHandler.path[z].x, _mouseEventHandler.path[z].y, 15, 0, 2 * Math.PI);
-                    ctx.fill();
-                }
-               // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                //  console.log('--------------------------');
+
+                // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
                 _collisionDispather.checkForCuttedOffFruits(_mouseEventHandler, _fruitCollection[i], movedPoints.x, movedPoints.y);
 
@@ -113,6 +121,35 @@ define(function (require) {
                     _fruitCollection = [];
                     angle = 0;
                 }
+            }
+            // for (var z = 0; z < _mouseEventHandler.path.length; z++) {
+            //     //   console.log(_mouseEventHandler.path[z]);
+            //     ctx.beginPath();
+            //     ctx.arc(_mouseEventHandler.path[z].x, _mouseEventHandler.path[z].y, 15, 0, 2 * Math.PI);
+            //     ctx.fill();
+            // }
+
+
+            for (var z = 1; z < _mouseEventHandler.path.length; z++) {
+                var isDrawing;
+                var lastPoint = {
+                    x: _mouseEventHandler.path[z - 1].x,
+                    y: _mouseEventHandler.path[z - 1].y
+                };
+                var currentPoint = {
+                    x: _mouseEventHandler.path[z].x,
+                    y: _mouseEventHandler.path[z].y
+                };
+                var dist = distanceBetween(lastPoint, currentPoint);
+                var angle2 = angleBetween(lastPoint, currentPoint);
+
+                for (var i = 0; i < dist; i++) {
+                    var x = lastPoint.x + (Math.sin(angle2) * i) - 25;
+                    var y = lastPoint.y + (Math.cos(angle2) * i) - 25;
+                    ctx.drawImage(img, x, y);
+                }
+
+                lastPoint = currentPoint;
             }
 
             if (_fruitCollection.length > 0)
