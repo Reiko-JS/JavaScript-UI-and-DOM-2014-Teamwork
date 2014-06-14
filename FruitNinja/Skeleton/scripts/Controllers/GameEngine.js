@@ -43,7 +43,7 @@ define(function (require) {
 
     function getRandomOfNumberFruits() {
         var fruitsCollection = [];
-        var randomLength = Utility.getRandomNumber(0, 8);
+        var randomLength = Utility.getRandomNumber(2, 12);
         for (var i = 0; i < randomLength; i++) {
             fruitsCollection.push(FruitFactory.getRandomFruit(_boundingBox));
         }
