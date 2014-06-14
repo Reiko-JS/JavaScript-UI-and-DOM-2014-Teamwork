@@ -16,6 +16,31 @@ define(function (require) {
         }
     ];
 
+    var imagesFruits = [];
+    var imagesFruitsHit = [];
+
+    //TODO add onload check. When using image.onload in the for loop the .onload function is skipped
+    function loadImages() {
+        if (imagesFruits.length <= 0) {
+            for (var i = 0, length = fruits.length; i < length; i++) {
+                var image = new Image();
+                image.src = 'images/' + fruits[i].type + '.png';
+                //image.onload = function () {
+                imagesFruits.push(image);
+                //};
+            }
+        }
+        if (imagesFruitsHit.length <= 0) {
+            for (i = 0, length = fruits.length; i < length; i++) {
+                var image = new Image();
+                image.src = 'images/' + fruits[i].type + '-hit.png';
+                //image.onload = function () {
+                imagesFruitsHit.push(image);
+                //};
+            }
+        }
+    }
+
     function getRandomFruit(coordsBoundaries) {
         var randomFruit = fruits[Utility.getRandomNumber(0, fruits.length - 1)];
         var fruitType = randomFruit.type;
@@ -38,6 +63,7 @@ define(function (require) {
 
     return {
         getRandomFruit: getRandomFruit,
-        getFruitsList: getFruitsList
+        getFruitsList: getFruitsList,
+        loadImages: loadImages
     };
 });

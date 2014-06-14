@@ -15,6 +15,8 @@ define(function (require) {
 
     var _boundingBox = null;
 
+    FruitFactory.loadImages();
+
     // Constructor
     function GameEngine(stage, gameFieldOptions, fruitLayerOptions) {
         var background = new Background(stage, gameFieldOptions),
