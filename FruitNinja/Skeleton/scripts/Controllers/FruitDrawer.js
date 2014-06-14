@@ -86,16 +86,16 @@ define(function (require) {
                     angle: angle,
                     factorY: _fruitCollection[i].factorY
                 }, _fruitCollection[i].direction);
-				
-				console.log('--------------------------');
-				for (var z = 0; z < _mouseEventHandler.path.length; z++) {
-					console.log(_mouseEventHandler.path[z]);
-					ctx.beginPath();
-					ctx.arc(_mouseEventHandler.path[z].x, _mouseEventHandler.path[z].y, 15, 0, 2 * Math.PI);
-					ctx.fill();
-				}
-				console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-				
+
+                console.log('--------------------------');
+                for (var z = 0; z < _mouseEventHandler.path.length; z++) {
+                    console.log(_mouseEventHandler.path[z]);
+                    ctx.beginPath();
+                    ctx.arc(_mouseEventHandler.path[z].x, _mouseEventHandler.path[z].y, 15, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+                console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
                 _collisionDispather.checkForCuttedOffFruits(_mouseEventHandler, _fruitCollection[i], movedPoints.x, movedPoints.y);
 
                 //deprecated
@@ -122,6 +122,8 @@ define(function (require) {
 
         //console.log(FruitFactory.getFruitsList());
 
+        //TODO add images to the fruit object, preload images in FruitFactory, set images for fruits in FruitFactory
+        //This is just a hardcoded example!
         var imageFruit = new Image(),
             imageFruitHit = new Image();
         imageFruit.src = 'images/watermelon.png';
