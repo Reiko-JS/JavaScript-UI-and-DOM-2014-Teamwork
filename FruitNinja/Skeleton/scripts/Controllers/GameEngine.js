@@ -3,7 +3,7 @@ define(function (require) {
 
     var FruitDrawer = require('./FruitDrawer.js'),
         Utility = require('../Helper/Utility.js'),
-        Background = require('../Models/Background.js'),
+        //Background = require('../Models/Background.js'),
         FruitLayer = require('../Models/FruitLayer.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
         CollisionDispatcher = require('./CollisionDispatcher.js'),
@@ -19,8 +19,8 @@ define(function (require) {
 
     // Constructor
     function GameEngine(stage, gameFieldOptions, fruitLayerOptions) {
-        var background = new Background(stage, gameFieldOptions),
-            fruitLayer = new FruitLayer(stage, fruitLayerOptions);
+        //var background = new Background(stage, gameFieldOptions);
+        var fruitLayer = new FruitLayer(stage, fruitLayerOptions);
 
         _mouseEventHandler = new MouseEventHandler();
         _collisionDispather = new CollisionDispatcher();
@@ -37,7 +37,7 @@ define(function (require) {
             }
         };
 
-        background.draw();
+        //background.draw();
         attachMouseEvents();
     }
 

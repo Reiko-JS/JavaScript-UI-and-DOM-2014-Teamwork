@@ -43,8 +43,8 @@ define(function (require) {
     gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
     gameEngine.startGame();
 
-    //var background = new Background(stage, gameFieldOptions);
-    //background.draw();
+    var background = new Background(stage, gameFieldOptions);
+    background.draw();
 
 
 });
