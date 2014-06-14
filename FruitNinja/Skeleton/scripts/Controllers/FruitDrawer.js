@@ -31,7 +31,7 @@ define(function (require) {
         //    }
         //    imageObj.src = 'images/' + _fruitCollection[i].defaultImageSrc;
         //}
-        var canvas = document.getElementsByTagName('canvas')[0],
+        var canvas = document.getElementById(_fruitLayer.canvas._canvas.id),
             ctx = canvas.getContext('2d'),
             center = {
                 x: canvas.width / 2,
