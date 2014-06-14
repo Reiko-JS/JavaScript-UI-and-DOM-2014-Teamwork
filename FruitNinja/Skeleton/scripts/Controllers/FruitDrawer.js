@@ -44,11 +44,21 @@ define(function (require) {
                 y: 0
             };
 
+        //fruit
         function drawPoint(ctx, x, y, r, color) {
             ctx.beginPath();
             ctx.fillStyle = color;
             ctx.arc(x, y, r, 0, 2 * Math.PI);
             ctx.fill();
+        }
+
+        function drawFruit(ctx, x, y, imageObj) {
+            /*ctx.beginPath();
+            ctx.fillStyle = color;
+            ctx.arc(x, y, r, 0, 2 * Math.PI);
+            ctx.fill();*/
+
+            ctx.drawImage(imageObj, x, y);
         }
 
         function movePoint(trajectory, isLeft) {
@@ -84,7 +94,10 @@ define(function (require) {
                 _collisionDispather.checkForCuttedOffFruits(_mouseEventHandler, _fruitCollection[i], movedPoints.x, movedPoints.y);
 
                 var color = _fruitCollection[i].isCut ? '#ccc' : '#000';
-                drawPoint(ctx, movedPoints.x + i * 10, movedPoints.y, 50, color);
+                //drawPoint(ctx, movedPoints.x + i * 10, movedPoints.y, 50, color);
+
+
+                drawFruit(ctx, movedPoints.x + i * 10, movedPoints.y, imageObj);
 
                 if (movedPoints.y >= 500) {
                     _fruitCollection = null;
@@ -100,8 +113,11 @@ define(function (require) {
                 window.requestAnimationFrame(frame);
 
         }
-
-        frame();
+        var imageObj = new Image();
+        imageObj.src = 'images/watermelon.png';
+        imageObj.onload = function () {
+            frame();
+        };
     };
 
     return FruitDrawer;
