@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var GameEngine = require('scripts/Controllers/GameEngine.js'),
@@ -30,12 +30,17 @@ define(function(require) {
 
     var gameEngine = null;
 
-    function onButtonStart() {
+    //temporerally disabled start button
+    /*function onButtonStart() {
         if (!gameEngine) {
             gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
             gameEngine.startGame();
         }
-    }
+    }*/
+
+    //should be done in onButtonStart
+    gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
+    gameEngine.startGame();
 
     //var background = new Background(stage, gameFieldOptions);
     //background.draw();
