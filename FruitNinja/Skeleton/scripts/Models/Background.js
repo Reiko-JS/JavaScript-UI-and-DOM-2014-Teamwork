@@ -12,7 +12,9 @@ define(function(require) {
         _canvas = document.getElementById(gameFieldOptions.containerId);
     }
 
-    // Use Kinetic.js
+    /// <summary>
+    /// Create and draw background layer using Kinetic.js
+    /// </summary>
     Background.prototype.draw = function() {
         var gameFieldLayer = new Kinetic.Layer();
         var gameField = _gameFieldOptions;

@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     // Constructor
@@ -15,10 +15,11 @@ define(function (require) {
         this.points = points;
     }
 
-    Fruit.prototype.cutOff = function () {
+    /// <summary>
+    /// Change condition of this Fruit to cutted off
+    /// </summary>
+    Fruit.prototype.cutOff = function() {
         this.isCut = true;
-        // Change image
-        // Change direction
     };
 
     return Fruit;

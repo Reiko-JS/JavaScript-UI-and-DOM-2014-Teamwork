@@ -1,4 +1,4 @@
-﻿define(function (require) {
+﻿define(function(require) {
     'use strict';
 
     var _stage = null;
@@ -12,8 +12,11 @@
         _canvas = document.getElementById(fruitLayerOptions.containerId);
     }
 
-    // Use Kinetic.js
-    FruitLayer.prototype.draw = function () {
+    /// <summary>
+    /// Create and draw fruit layer using Kinetic.js
+    /// As result returns the layer
+    /// </summary>
+    FruitLayer.prototype.draw = function() {
         var fruitLayer = new Kinetic.Layer();
         fruitLayer.canvas._canvas.id = _fruitLayerOptions.canvasId;
         var gameField = _fruitLayerOptions;

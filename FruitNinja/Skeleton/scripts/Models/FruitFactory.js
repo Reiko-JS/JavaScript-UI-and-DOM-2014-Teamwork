@@ -21,38 +21,44 @@ define(function(require) {
         points: 30
     }];
 
-    var imagesFruits = [];
-    var imagesFruitsHit = [];
+    var _imagesFruits = [];
+    var _imagesFruitsHit = [];
 
     //TODO add onload check. When using image.onload in the for loop the .onload function is skipped
+    /// <summary>
+    ///
+    /// </summary>
     function loadImages() {
-        if (imagesFruits.length <= 0) {
-            for (var i = 0, length = fruits.length; i < length; i++) {
-                var image = new Image();
+        var image = null;
+        var len = fruits.length;
+
+        if (_imagesFruits.length === 0) {
+            for (var i = 0; i < len; i++) {
+                image = new Image();
                 image.src = 'images/' + fruits[i].type + '.png';
-                //image.onload = function () {
-                imagesFruits.push(image);
-                //};
+                _imagesFruits.push(image);
             }
         }
-        if (imagesFruitsHit.length <= 0) {
-            for (i = 0, length = fruits.length; i < length; i++) {
-                var image = new Image();
-                image.src = 'images/' + fruits[i].type + '-hit.png';
-                //image.onload = function () {
-                imagesFruitsHit.push(image);
-                //};
+
+        if (_imagesFruitsHit.length === 0) {
+            for (var j = 0; j < len; j++) {
+                image = new Image();
+                image.src = 'images/' + fruits[j].type + '-hit.png';
+                _imagesFruitsHit.push(image);
             }
         }
     }
 
+    /// <summary>
+    /// Returns fruit with random properties
+    /// </summary>
     function getRandomFruit(coordsBoundaries) {
         var randomNumber = Utility.getRandomNumber(0, fruits.length - 1);
         var randomFruit = fruits[randomNumber];
-        //var fruitType = randomFruit.type;
+
         var fruitPoints = randomFruit.points,
-            defImg = imagesFruits[randomNumber],
-            hitImg = imagesFruitsHit[randomNumber];
+            defImg = _imagesFruits[randomNumber],
+            hitImg = _imagesFruitsHit[randomNumber];
 
         var coords = Utility.getRandomCoords(coordsBoundaries),
             rndDir = Utility.getRandomDirection(coords, coordsBoundaries),
@@ -63,6 +69,9 @@ define(function(require) {
         return newFruit;
     }
 
+    /// <summary>
+    /// Returns collection of objects represent { fruit type + points }
+    /// </summary>
     function getFruitsList() {
         return fruits;
     }
