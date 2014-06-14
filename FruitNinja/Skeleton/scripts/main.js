@@ -30,14 +30,14 @@ define(function(require) {
     });
 
     var gameEngine = null;
-
+    var audio = new Audio('sounds/gong.mp3');
     //temporerally disabled start button
     function onButtonStart() {
         if (!gameEngine) {
             gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
             gameEngine.startGame();
 
-
+            audio.play();
         }
     }
     document.getElementById("start").addEventListener("click", onButtonStart);
@@ -55,6 +55,7 @@ define(function(require) {
         if (!gameEngine) {
             gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
             gameEngine.startGame();
+            audio.play();
         }
 
         $('#game-field').css('padding-top', '240px');

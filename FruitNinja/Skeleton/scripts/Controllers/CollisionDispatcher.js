@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     var _context = null;
@@ -23,6 +23,7 @@ define(function (require) {
                     y <= mouseCoordinate.y &&
                     (y + _fruitsHeight) > mouseCoordinate.y) {
                     fruit.cutOff();
+                    return;
                 }
             }
         }
