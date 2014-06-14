@@ -32,7 +32,12 @@ define(function (require) {
         return newFruit;
     }
 
+    function getFruitsList() {
+        return fruits;
+    }
+
     return {
-        getRandomFruit: getRandomFruit
+        getRandomFruit: getRandomFruit,
+        getFruitsList: getFruitsList
     };
 });

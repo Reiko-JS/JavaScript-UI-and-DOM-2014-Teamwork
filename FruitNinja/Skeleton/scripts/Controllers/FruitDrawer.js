@@ -111,7 +111,7 @@ define(function (require) {
 
         }
 
-        console.log(FruitFactory.fruits);
+        //console.log(FruitFactory.getFruitsList());
 
         var imageFruit = new Image(),
             imageFruitHit = new Image();
@@ -132,10 +132,6 @@ define(function (require) {
         var ic = imageCollector(2, frame());
         imageFruit.onload = ic;
         imageFruitHit.onload = ic;
-
-        /*imageFruit.onload = function () {
-    frame();
-};*/
     };
 
     return FruitDrawer;

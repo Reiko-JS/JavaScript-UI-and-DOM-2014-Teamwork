@@ -14,7 +14,7 @@ define(function (require) {
 
     // mouseCoords is array of last 10-20 mouse coords that was on the screen { x, y }
     CollisionDispatcher.prototype.checkForCuttedOffFruits = function checkForCuttedOffFruits(mouseCoords, fruit, x, y) {
-        console.log(mouseCoords.isMouseDown);
+        //console.log(mouseCoords.isMouseDown);
         if (mouseCoords.isMouseDown) {
             for (var j = 0; j < mouseCoords.path.length; j++) {
                 var mouseCoordinate = mouseCoords.path[j];

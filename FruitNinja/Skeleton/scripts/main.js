@@ -36,7 +36,8 @@ define(function (require) {
             gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
             gameEngine.startGame();
         }
-    }*/
+    }
+    document.getElementById("start").addEventListener("click", onButtonStart);*/
 
     //should be done in onButtonStart
     gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
@@ -45,5 +46,5 @@ define(function (require) {
     //var background = new Background(stage, gameFieldOptions);
     //background.draw();
 
-    document.getElementById("start").addEventListener("click", onButtonStart);
+
 });
