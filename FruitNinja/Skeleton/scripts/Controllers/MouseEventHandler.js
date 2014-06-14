@@ -10,6 +10,7 @@ define(function (require) {
 
     MouseEventHandler.prototype.mouseDown = function (event, mouseObj) {
         mouseObj.isMouseDown = true;
+		mouseObj.path.push({x: event.offsetX || event.layerX, y: event.offsetY || event.layerY});
         //console.log(mouseObj.isMouseDown);
     }
 
@@ -26,7 +27,7 @@ define(function (require) {
                 mouseObj.path.shift();
             }
 
-            mouseObj.path.push({x: event.clientX, y: event.clientY});
+            mouseObj.path.push({x: event.offsetX || event.layerX, y: event.offsetY || event.layerY});
 //            mouseObj.x = event.clientX;
 //            mouseObj.y = event.clientY;
             //console.dir(mouseObj.getCoords());
