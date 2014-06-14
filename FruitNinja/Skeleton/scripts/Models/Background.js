@@ -17,6 +17,8 @@ define(function(require) {
         var gameFieldLayer = new Kinetic.Layer();
         var gameField = _gameFieldOptions;
 
+        gameFieldLayer.canvas._canvas.id = _gameFieldOptions.canvasId;
+
         _canvas.style.backgroundColor = gameField.colors.brown;
         _canvas.style.width = gameField.width + 'px';
         _canvas.style.height = gameField.height + 'px';
