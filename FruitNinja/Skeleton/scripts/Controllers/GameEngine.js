@@ -44,6 +44,9 @@ define(function(require) {
         attachMouseEvents();
     }
 
+    /// <summary>
+    /// Gets a random ammount of randfom fruits
+    /// </summary>
     function getRandomOfNumberFruits() {
         var fruitsCollection = [];
         var randomLength = Utility.getRandomNumber(2, 12);

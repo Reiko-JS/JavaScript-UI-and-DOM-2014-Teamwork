@@ -45,16 +45,11 @@ define(function (require) {
                 y: 0
             };
 
-        //deprecated
-        /*function drawPoint(ctx, x, y, r, color) {
-         ctx.beginPath();
-         ctx.fillStyle = color;
-         ctx.arc(x, y, r, 0, 2 * Math.PI);
-         ctx.fill();
-         }*/
-
-        function drawFruit(ctx, x, y, imageObj) {
-            ctx.drawImage(imageObj, x, y);
+        /// <summary>
+        /// Draws a single fruit based on the image and current position
+        /// </summary>
+        function drawFruit(ctx, x, y, fruitImage) {
+            ctx.drawImage(fruitImage, x, y);
         }
 
         function movePoint(trajectory, isLeft) {
@@ -68,6 +63,7 @@ define(function (require) {
 
         var shouldRun = true;
         var img = new Image();
+        // TODO save image locally
         img.src = 'http://www.tricedesigns.com/wp-content/uploads/2012/01/brush2.png'
 
         function distanceBetween(point1, point2) {
@@ -80,7 +76,7 @@ define(function (require) {
 
         ctx.lineJoin = ctx.lineCap = 'round';
 
-
+        // TODO does many non frame drawing related tasks and is out of place. Needs refactoring!
         function frame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -161,7 +157,6 @@ define(function (require) {
 
         frame();
 
-        //TODO add images to the fruit object, preload images in FruitFactory, set images for fruits in FruitFactory
         //This is just a hardcoded example!
         /*var imageFruit = new Image(),
          imageFruitHit = new Image();

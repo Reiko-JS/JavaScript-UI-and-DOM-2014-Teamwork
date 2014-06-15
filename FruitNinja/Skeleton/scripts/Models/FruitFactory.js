@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var Fruit = require('./Fruit.js');
@@ -26,7 +26,7 @@ define(function(require) {
 
     //TODO add onload check. When using image.onload in the for loop the .onload function is skipped
     /// <summary>
-    ///
+    /// Preloads fruit Images
     /// </summary>
     function loadImages() {
         var image = null;
