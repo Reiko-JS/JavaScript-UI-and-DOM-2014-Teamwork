@@ -24,6 +24,17 @@ define(function(require) {
         height: 500
     };
 
+    var playerOptions = {
+        lives: 3
+    };
+
+    var playerLayerOptions = {
+        containerId: 'game-field',
+        canvasId: 'player-layer',
+        width: 1000,
+        height: 200
+    };
+
     var eventListenerOptions = {
         startGameButtonId: '#start',
         exitFullscreenButtonId: '#exit-fullscreen',
@@ -44,6 +55,8 @@ define(function(require) {
         fruitLayerOptions: fruitLayerOptions,
         eventListenerOptions: eventListenerOptions,
         stage: stage,
-        gamePlayOptions: gamePlayOptions
+        gamePlayOptions: gamePlayOptions,
+        playerOptions: playerOptions,
+        playerLayerOptions: playerLayerOptions
     };
 });

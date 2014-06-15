@@ -6,13 +6,16 @@ define(function(require) {
         CanvasLayer = require('../Models/CanvasLayer.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
         CollisionDispatcher = require('./CollisionDispatcher.js'),
-        FruitFactory = require('../Models/FruitFactory.js');
+        FruitFactory = require('../Models/FruitFactory.js'),
+        Player = require('../Models/Player.js');
 
     var _GameSettings = null,
         _fruitLayer = null,
         _mouseEventHandler = null,
         _collisionDispatcher = null,
-        _objectDrawer = null;
+        _objectDrawer = null,
+        _player = null,
+        _playerResultsLayer = null;
 
     var _boundingBox = null,
         _fruitsCollection = [],
@@ -28,6 +31,11 @@ define(function(require) {
 
         var fruitCanvasLayer = new CanvasLayer(_GameSettings.stage, _GameSettings.fruitLayerOptions);
         _fruitLayer = fruitCanvasLayer.getLayer();
+
+        _player = new Player(_GameSettings.playerOptions);
+
+        var playerResultCanvasLayer = new CanvasLayer(_GameSettings.stage, _GameSettings.playerLayerOptions);
+        _playerResultsLayer = playerResultCanvasLayer.getLayer();
 
         _boundingBox = {
             x: {
@@ -77,6 +85,9 @@ define(function(require) {
         } else {
             _fruitsCollection = getRandomOfNumberFruits(_boundingBox);
         }
+
+        //_playerResults.drawResults(_player);
+        _objectDrawer.drawResult(_playerResultsLayer, _player);
     }
 
     function attachMouseEvents() {
