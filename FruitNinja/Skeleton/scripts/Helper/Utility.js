@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     /// <summary>
@@ -28,14 +28,21 @@ define(function(require) {
         };
     }
 
+    function calculateObjectCoordinates(object) {
+        return {
+            x: 0,
+            y: 0
+        }
+    }
+
     return {
-        getRandomNumber: function(min, max) {
+        getRandomNumber: function (min, max) {
             return getRandomNumber(min, max);
         },
-        getRandomCoords: function(coordinateBoundaries) {
+        getRandomCoords: function (coordinateBoundaries) {
             return getRandomCoords(coordinateBoundaries);
         },
-        getRandomDirection: function(coordinates, coordinateBoundaries) {
+        getRandomDirection: function (coordinates, coordinateBoundaries) {
             return getRandomDirection(coordinates, coordinateBoundaries);
         }
     };
