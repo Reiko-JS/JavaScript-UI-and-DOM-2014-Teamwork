@@ -41,6 +41,7 @@ define(function(require) {
         toggleFullscreenButtonId: '#fullscreen',
         gameFieldId: '#game-field',
         backgroundLayerId: '#background-layer',
+        playerLayerId: '#player-layer',
         startGameSoundSrc: 'sounds/gong.wav'
     };
 
