@@ -1,34 +1,33 @@
 define(function(require) {
     'use strict';
 
-    var FruitDrawer = require('./FruitDrawer.js'),
+    var ObjectDrawer = require('./ObjectDrawer.js'),
         Utility = require('../Helper/Utility.js'),
         FruitLayer = require('../Models/FruitLayer.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
         CollisionDispatcher = require('./CollisionDispatcher.js'),
         FruitFactory = require('../Models/FruitFactory.js');
 
-    var _mouseEventHandler = null,
-        _collisionDispatcher = null,
-        _fruitDrawer = null,
+    var _GameSettings = null,
         _fruitLayer = null,
-        _GameSettings = null;
+        _mouseEventHandler = null,
+        _collisionDispatcher = null,
+        _fruitDrawer = null;
 
     var _boundingBox = null,
-        _fruitsCollection = [];
-
-    var _isRunning = false;
-
-    FruitFactory.loadImages();
+        _fruitsCollection = [],
+        _isRunning = false;
 
     // Constructor
     function GameEngine(GameSettings) {
+        FruitFactory.loadImages();
+
         _GameSettings = GameSettings;
         _fruitLayer = new FruitLayer(_GameSettings.stage, _GameSettings.fruitLayerOptions);
 
         _mouseEventHandler = new MouseEventHandler();
         _collisionDispatcher = new CollisionDispatcher();
-        _fruitDrawer = new FruitDrawer(_fruitLayer);
+        _fruitDrawer = new ObjectDrawer(_fruitLayer);
 
         _boundingBox = {
             x: {
@@ -40,6 +39,7 @@ define(function(require) {
                 max: _GameSettings.gameFieldOptions.height
             }
         };
+        _fruitsCollection = getRandomOfNumberFruits();
 
         attachMouseEvents();
     }
@@ -63,8 +63,18 @@ define(function(require) {
     //    }
 
     function updateCanvas() {
-        _fruitsCollection = getRandomOfNumberFruits();
-        _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
+        var isDrawn = _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
+
+        // TODO: Which of these function must be first ???
+        _fruitDrawer.drawMouseTrails(_mouseEventHandler.path);
+        _collisionDispatcher.checkForCuttedOffFruits(_mouseEventHandler, _fruitsCollection);
+
+        if (isDrawn !== false) {
+            window.requestAnimationFrame(updateCanvas);
+        }
+        else {
+            _fruitsCollection = getRandomOfNumberFruits();
+        }
     }
 
     function attachMouseEvents() {
