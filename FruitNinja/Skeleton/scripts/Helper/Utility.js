@@ -36,9 +36,10 @@ define(function(require) {
         return Math.atan2(point2.x - point1.x, point2.y - point1.y);
     }
 
-    function movePoint(point, canvasHeight, isDirectionLeft) {
+    function movePoint(point, canvasHeight, isDirectionLeft, isCut) {
         var pRadius = isDirectionLeft === true ? point.radius : -point.radius;
-
+        pRadius = isCut ? 0 : pRadius;
+        
         return {
             x: point.x + pRadius * Math.cos(point.angle / 180 * Math.PI) / 1.2,
             y: canvasHeight - (point.y + point.radius * Math.sin(point.angle / 180 * Math.PI) * point.factorY)
@@ -61,8 +62,8 @@ define(function(require) {
         calcAngleBetweenTwoPoints: function(point1, point2) {
             return calcAngleBetweenTwoPoints(point1, point2);
         },
-        movePoint: function(point, canvasHeight, isDirectionLeft) {
-            return movePoint(point, canvasHeight, isDirectionLeft);
+        movePoint: function(point, canvasHeight, isDirectionLeft, isCut) {
+            return movePoint(point, canvasHeight, isDirectionLeft, isCut);
         }
     };
 });

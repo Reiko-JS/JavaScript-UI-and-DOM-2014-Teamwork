@@ -6,7 +6,7 @@ define(function(require) {
 
     // TODO: save image locally
     var _knigeImg = new Image();
-    _knigeImg.src = 'http://www.tricedesigns.com/wp-content/uploads/2012/01/brush2.png';
+    _knigeImg.src = 'images/brush.png';
 
     var _layerCenterY = null,
         _fruitRadius = 100,
@@ -77,13 +77,12 @@ define(function(require) {
                 radius: _fruitRadius,
                 angle: _currentAngle,
                 factorY: fruitCollection[i].factorY
-            }, context.canvas.height, fruitCollection[i].direction);
+            }, context.canvas.height, fruitCollection[i].direction, fruitCollection[i].isCut);
 
             fruitCollection[i].mX = movedPoint.x;
             fruitCollection[i].mY = movedPoint.y;
 
             _fruitImg = getFruitImgSrc(fruitCollection[i]);
-            //drawImage(context, movedPoint.x + i * 10, movedPoint.y, _fruitImg);
             drawImage(context, movedPoint.x + i * 10, movedPoint.y, _fruitImg);
 
             if (_currentAngle >= 180) {
