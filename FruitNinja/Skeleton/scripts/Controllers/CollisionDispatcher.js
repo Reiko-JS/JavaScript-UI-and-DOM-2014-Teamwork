@@ -16,16 +16,12 @@ define(function(require) {
     }
 
     /// <summary>
-    /// 'mouseCoords' is collection of last 10-20 mouse coords that were on the screen { x, y }
+    /// 'mousePath' is collection of last 10-20 mouse coords that were on the screen { x, y }
     /// </summary>
-    CollisionDispatcher.prototype.checkForCuttedOffFruits = function(mouseCoords, fruitCollection) {
-        if (!mouseCoords.isMouseDown) {
-            return;
-        }
-
+    CollisionDispatcher.prototype.checkForCuttedOffFruits = function(mousePath, fruitCollection) {
         for (var i = 0; i < fruitCollection.length; i++) {
-            for (var j = 0; j < mouseCoords.path.length; j++) {
-                if (isMouseOverFruit(mouseCoords.path[j], fruitCollection[i].mX, fruitCollection[i].mY)) {
+            for (var j = 0; j < mousePath.length; j++) {
+                if (isMouseOverFruit(mousePath[j], fruitCollection[i].mX, fruitCollection[i].mY)) {
                     fruitCollection[i].cutOff();
                     break;
                 }

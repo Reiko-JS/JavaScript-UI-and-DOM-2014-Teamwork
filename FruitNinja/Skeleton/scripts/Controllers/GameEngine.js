@@ -63,11 +63,14 @@ define(function(require) {
     //    }
 
     function updateCanvas() {
-        var isDrawn = _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
+        var isDrawn = _fruitDrawer.drawFruits(_fruitsCollection);
 
         // TODO: Which of these function must be first ???
+        if (_mouseEventHandler.isMouseDown) {
+            _collisionDispatcher.checkForCuttedOffFruits(_mouseEventHandler.path, _fruitsCollection);
+        }
+
         _fruitDrawer.drawMouseTrails(_mouseEventHandler.path);
-        _collisionDispatcher.checkForCuttedOffFruits(_mouseEventHandler, _fruitsCollection);
 
         if (isDrawn !== false) {
             window.requestAnimationFrame(updateCanvas);
