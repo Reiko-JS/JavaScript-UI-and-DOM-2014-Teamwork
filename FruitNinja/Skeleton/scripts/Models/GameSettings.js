@@ -30,7 +30,7 @@ define(function(require) {
         toggleFullscreenButtonId: '#fullscreen',
         gameFieldId: '#game-field',
         backgroundLayerId: '#background-layer',
-        startGameSoundSrc: 'sounds/gong.mp3'
+        startGameSoundSrc: 'sounds/gong.wav'
     };
 
     var stage = new Kinetic.Stage({

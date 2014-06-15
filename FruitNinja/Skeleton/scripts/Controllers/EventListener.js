@@ -9,16 +9,32 @@ define(function(require) {
     function EventListener(gameEngine, EventSettings) {
         _gameEngine = gameEngine;
         _EventSettings = EventSettings;
-        _startGameSound = new Audio(_EventSettings.startGameSoundSrc);
-    }
 
-    function startGame() {
-        if (!_gameEngine.isRunning()) {
-            _gameEngine.startGame();
-            _startGameSound.play();
+        try {
+            _startGameSound = new Audio(_EventSettings.startGameSoundSrc);
+        }
+        catch (ex) {
+            // new Audio() does not work for IE 10 !!!
+            // Error -> SCRIPT16385: Not implemented
         }
     }
 
+    /// <summary>
+    /// When some of the start buttons is clicked - starts the game if it is not started already
+    /// </summary>
+    function startGame() {
+        if (!_gameEngine.isRunning()) {
+            _gameEngine.startGame();
+            
+            if (_startGameSound) {
+                _startGameSound.play();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Resize html elements containers and show/hide fullscreen buttons
+    /// </summary>
     function resizeFieldOnToggleFullScreenMode(sender, btnIdToShow, isInFC) {
         $(_EventSettings.gameFieldId).css('padding-top', isInFC ? '240px' : '0');
         $(_EventSettings.backgroundLayerId).css('margin-top', isInFC ? '-120px' : '');
@@ -28,11 +44,12 @@ define(function(require) {
         $(sender).hide();
     }
 
+    /// <summary>
+    /// Toggle fullscreen for browsers that support it!
+    /// </summary>
     function tryToggleFullscreenMode() {
-        var docElement, request;
-
-        docElement = document.documentElement;
-        request = docElement.requestFullScreen || docElement.webkitRequestFullScreen || docElement.mozRequestFullScreen || docElement.msRequestFullScreen;
+        var docElement = document.documentElement;
+        var request = docElement.requestFullScreen || docElement.webkitRequestFullScreen || docElement.mozRequestFullScreen || docElement.msRequestFullScreen;
 
         if (typeof request != "undefined" && request) {
             request.call(docElement);
@@ -46,16 +63,11 @@ define(function(require) {
     /// Cancel fullscreen for browsers that support it!
     /// </summary>
     function tryExitFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-            return true;
-        }
-        else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-            return true;
-        }
-        else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
+        var docElement = document;
+        var request = docElement.exitFullscreen || docElement.mozCancelFullScreen || docElement.webkitExitFullscreen || docElement.msCancelFullScreen;
+
+        if (typeof request != "undefined" && request) {
+            request.call(docElement);
             return true;
         }
 
