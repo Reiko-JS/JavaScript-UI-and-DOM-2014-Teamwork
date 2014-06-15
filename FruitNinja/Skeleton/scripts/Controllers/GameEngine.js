@@ -72,10 +72,12 @@ define(function(require) {
 
     function updateCanvas() {
         var isDrawn = _objectDrawer.drawFruits(_fruitLayer, _fruitsCollection);
+        var collectedPoints = 0;
 
         // TODO: Which of these function must be first ???
         if (_mouseEventHandler.isMouseDown) {
-            _collisionDispatcher.checkForCuttedOffFruits(_mouseEventHandler.path, _fruitsCollection);
+            collectedPoints = _collisionDispatcher.checkForCuttedOffFruits(_mouseEventHandler.path, _fruitsCollection);
+            _player.updatePoints(collectedPoints);
         }
 
         _objectDrawer.drawMouseTrails(_fruitLayer, _mouseEventHandler.path);

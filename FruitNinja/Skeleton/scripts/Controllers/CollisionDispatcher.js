@@ -19,14 +19,21 @@ define(function(require) {
     /// 'mousePath' is collection of last 10-20 mouse coords that were on the screen { x, y }
     /// </summary>
     CollisionDispatcher.prototype.checkForCuttedOffFruits = function(mousePath, fruitCollection) {
+        var collectedPoints = 0;
+
         for (var i = 0; i < fruitCollection.length; i++) {
             for (var j = 0; j < mousePath.length; j++) {
                 if (isMouseOverFruit(mousePath[j], fruitCollection[i].mX, fruitCollection[i].mY)) {
+                    if (!fruitCollection[i].isCut) {
+                        collectedPoints += fruitCollection[i].points;
+                    }
                     fruitCollection[i].cutOff();
                     break;
                 }
             }
         }
+
+        return collectedPoints;
     };
 
     return CollisionDispatcher;
