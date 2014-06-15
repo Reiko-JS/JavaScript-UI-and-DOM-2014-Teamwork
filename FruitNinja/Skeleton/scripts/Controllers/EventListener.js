@@ -9,7 +9,7 @@ define(function(require) {
     function EventListener(gameEngine, EventSettings) {
         _gameEngine = gameEngine;
         _EventSettings = EventSettings;
-
+        
         _startGameSound = new Audio(_EventSettings.startGameSoundSrc);
     }
 
@@ -19,27 +19,28 @@ define(function(require) {
     function startGame() {
         if (!_gameEngine.isRunning()) {
             _gameEngine.startGame();
-
+            
             var ua = window.navigator.userAgent;
-            //console.log('Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; Zune 4.7)');
-            //console.log(ua);
+            console.log('Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; Zune 4.7)');
+            console.log(ua);
             var msie = ua.indexOf('MSIE');
             var ie11 = ua.indexOf('Trident');
-
-            //console.log(msie);
-
-            if (msie > 0 || ie11 > 0) {
+            
+            console.log(msie);
+            
+            if(msie>0 || ie11>0){
                 $('<object/>')
                     .attr('data', _EventSettings.startGameSoundSrc)
-                    .attr('type', 'audio/' + _EventSettings.startGameSoundSrc.split('.').pop())
+                    .attr('type', 'audio/'+_EventSettings.startGameSoundSrc.split('.').pop())
                     .hide()
                     .append(
                         $('<embed/>').attr('src', _EventSettings.startGameSoundSrc)
-                )
+                    )
                     .appendTo('body');
                 // new Audio() does not work for IE 10 !!!
                 // Error -> SCRIPT16385: Not implemented
-            } else {
+            }
+            else{
                 _startGameSound.play();
             }
         }
