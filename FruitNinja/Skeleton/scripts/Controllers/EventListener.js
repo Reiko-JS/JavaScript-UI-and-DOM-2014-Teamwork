@@ -49,7 +49,7 @@ define(function(require) {
     /// </summary>
     function tryToggleFullscreenMode() {
         var docElement = document.documentElement;
-        var request = docElement.requestFullScreen || docElement.webkitRequestFullScreen || docElement.mozRequestFullScreen || docElement.msRequestFullScreen;
+        var request = docElement.requestFullscreen || docElement.webkitRequestFullScreen || docElement.mozRequestFullScreen || docElement.msRequestFullscreen;
 
         if (typeof request != "undefined" && request) {
             request.call(docElement);
@@ -64,7 +64,7 @@ define(function(require) {
     /// </summary>
     function tryExitFullscreen() {
         var docElement = document;
-        var request = docElement.exitFullscreen || docElement.mozCancelFullScreen || docElement.webkitExitFullscreen || docElement.msCancelFullScreen;
+        var request = docElement.exitFullScreen || docElement.mozCancelFullScreen || docElement.webkitExitFullScreen || docElement.webkitCancelFullScreen || docElement.msCancelFullscreen || docElement.msExitFullscreen;
 
         if (typeof request != "undefined" && request) {
             request.call(docElement);
