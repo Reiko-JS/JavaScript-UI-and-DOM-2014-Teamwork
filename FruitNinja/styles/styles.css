@@ -1,0 +1,21 @@
+html {
+    cursor: crosshair;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #673720;
+}
+
+div#game-field {
+    margin: 0 auto;
+}
+
+canvas#fruit-layer {
+    z-index: 1;
+}
+
+button#exit-fullscreen {
+    display: none;
+}
