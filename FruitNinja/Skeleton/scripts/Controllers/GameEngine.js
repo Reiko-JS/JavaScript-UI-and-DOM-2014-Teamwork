@@ -28,7 +28,7 @@ define(function(require) {
 
         _mouseEventHandler = new MouseEventHandler();
         _collisionDispatcher = new CollisionDispatcher();
-        _fruitDrawer = new FruitDrawer(_GameSettings.stage, _fruitLayer);
+        _fruitDrawer = new FruitDrawer(_fruitLayer);
 
         _boundingBox = {
             x: {

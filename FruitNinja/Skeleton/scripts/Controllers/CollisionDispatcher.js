@@ -26,6 +26,7 @@ define(function(require) {
         for (var j = 0; j < mouseCoords.path.length; j++) {
             if (isMouseOverFruit(mouseCoords.path[j], fX, fY)) {
                 fruit.cutOff();
+                return;
             }
         }
     };
