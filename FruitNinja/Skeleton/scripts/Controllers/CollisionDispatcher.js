@@ -23,7 +23,7 @@ define(function(require) {
                     y <= mouseCoordinate.y &&
                     (y + _fruitsHeight) > mouseCoordinate.y) {
                     fruit.cutOff();
-                    return;
+                    //return; //What if more than one fruit is cutted on these coordinates?
                 }
             }
         }

@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var FruitFactory = require('../Models/FruitFactory.js');
@@ -13,7 +13,7 @@ define(function(require) {
         //  _fruitCollection = fruitCollecion;
     }
 
-    FruitDrawer.prototype.drawFruits = function(_fruitCollection, _collisionDispather, _mouseEventHandler) {
+    FruitDrawer.prototype.drawFruits = function (_fruitCollection, _collisionDispather, _mouseEventHandler) {
         //console.log(_fruitCollection)
         //for (var i = 0; i < _fruitCollection.length; i++) {
         //    console.log(_fruitCollection[i].coords)
@@ -47,11 +47,11 @@ define(function(require) {
 
         //deprecated
         /*function drawPoint(ctx, x, y, r, color) {
-            ctx.beginPath();
-            ctx.fillStyle = color;
-            ctx.arc(x, y, r, 0, 2 * Math.PI);
-            ctx.fill();
-        }*/
+         ctx.beginPath();
+         ctx.fillStyle = color;
+         ctx.arc(x, y, r, 0, 2 * Math.PI);
+         ctx.fill();
+         }*/
 
         function drawFruit(ctx, x, y, imageObj) {
             ctx.drawImage(imageObj, x, y);
@@ -164,24 +164,24 @@ define(function(require) {
         //TODO add images to the fruit object, preload images in FruitFactory, set images for fruits in FruitFactory
         //This is just a hardcoded example!
         /*var imageFruit = new Image(),
-        imageFruitHit = new Image();
-        imageFruit.src = 'images/watermelon.png';
-        imageFruitHit.src = 'images/watermelon-hit.png';
+         imageFruitHit = new Image();
+         imageFruit.src = 'images/watermelon.png';
+         imageFruitHit.src = 'images/watermelon-hit.png';
 
 
-        //onload for multiple images
-        var imageCollector = function (expectedCount, completeFn) {
-            var receivedCount;
-            return function () {
-                if (++receivedCount == expectedCount) {
-                    completeFn();
-                }
-            };
-        }();
+         //onload for multiple images
+         var imageCollector = function (expectedCount, completeFn) {
+         var receivedCount;
+         return function () {
+         if (++receivedCount == expectedCount) {
+         completeFn();
+         }
+         };
+         }();
 
-        var ic = imageCollector(2, frame());
-        imageFruit.onload = ic;
-        imageFruitHit.onload = ic;*/
+         var ic = imageCollector(2, frame());
+         imageFruit.onload = ic;
+         imageFruitHit.onload = ic;*/
     };
 
     return FruitDrawer;

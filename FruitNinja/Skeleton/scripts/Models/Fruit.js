@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     // Constructor
@@ -9,6 +9,7 @@ define(function(require) {
         this.angle = angle;
         this.factorY = facY;
         this.isCut = false;
+        this.opacity = 1;
 
         this.defaultImageSrc = defaultImage;
         this.hitImageSrc = hitImage;
@@ -18,7 +19,7 @@ define(function(require) {
     /// <summary>
     /// Change condition of this Fruit to cutted off
     /// </summary>
-    Fruit.prototype.cutOff = function() {
+    Fruit.prototype.cutOff = function () {
         this.isCut = true;
     };
 

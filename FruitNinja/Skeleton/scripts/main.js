@@ -1,48 +1,24 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var GameEngine = require('scripts/Controllers/GameEngine.js'),
-        Background = require('scripts/Models/Background.js');
-
-    var gameFieldOptions = {
-        containerId: 'game-field',
-        canvasId: 'background-layer',
-        width: 1000,
-        height: 500,
-        colors: {
-            brown: '#673720',
-            darkBrown: '#401c10'
-        },
-        imgSrc: 'images/nin.png'
-    };
-
-    var fruitLayerOptions = {
-        containerId: 'game-field',
-        canvasId: 'fruit-layer',
-        width: 1000,
-        height: 500,
-    };
-
-    var stage = new Kinetic.Stage({
-        container: 'game-field',
-        width: gameFieldOptions.width,
-        height: gameFieldOptions.height
-    });
+        Background = require('scripts/Models/Background.js'),
+        GameSettings = require('scripts/Models/GameSettings.js');
 
     var gameEngine = null;
     var audio = new Audio('sounds/gong.mp3');
-    //temporerally disabled start button
+
     function onButtonStart() {
         if (!gameEngine) {
-            gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
+            gameEngine = new GameEngine(GameSettings);
             gameEngine.startGame();
-
             audio.play();
         }
     }
+
     document.getElementById("start").addEventListener("click", onButtonStart);
 
-    $("#fullscreen").on('click', function() {
+    $("#fullscreen").on('click', function () {
         var docElement, request;
 
         docElement = document.documentElement;
@@ -70,7 +46,7 @@ define(function(require) {
     });
 
 
-    $("#exit-fullscreen").on('click', function() {
+    $("#exit-fullscreen").on('click', function () {
         function exitFullscreen() {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -82,7 +58,7 @@ define(function(require) {
         }
 
         // Cancel fullscreen for browsers that support it!
-        exitFullscreen()
+        exitFullscreen();
 
         $('#game-field').css('padding-top', '0');
         $('#background-layer').css('margin-top', '0');
@@ -94,12 +70,6 @@ define(function(require) {
         $(this).hide();
     });
 
-    // //should be done in onButtonStart
-    // gameEngine = new GameEngine(stage, gameFieldOptions, fruitLayerOptions);
-    // gameEngine.startGame();
-
-
-    var background = new Background(stage, gameFieldOptions);
+    var background = new Background(GameSettings.stage, GameSettings.gameFieldOptions);
     background.draw();
-
 });

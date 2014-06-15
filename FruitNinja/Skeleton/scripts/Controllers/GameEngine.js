@@ -3,41 +3,42 @@ define(function (require) {
 
     var FruitDrawer = require('./FruitDrawer.js'),
         Utility = require('../Helper/Utility.js'),
-        //Background = require('../Models/Background.js'),
         FruitLayer = require('../Models/FruitLayer.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
         CollisionDispatcher = require('./CollisionDispatcher.js'),
         FruitFactory = require('../Models/FruitFactory.js');
 
-    var _mouseEventHandler = null;
-    var _collisionDispather = null;
-    var _fruitDrawer = null;
+    var _mouseEventHandler = null,
+        _collisionDispatcher = null,
+        _fruitDrawer = null,
+        _fruitLayer = null,
+        _GameSettings = null;
 
-    var _boundingBox = null;
+    var _boundingBox = null,
+        _fruitsCollection = [];
 
     FruitFactory.loadImages();
 
     // Constructor
-    function GameEngine(stage, gameFieldOptions, fruitLayerOptions) {
-        //var background = new Background(stage, gameFieldOptions);
-        var fruitLayer = new FruitLayer(stage, fruitLayerOptions);
+    function GameEngine(GameSettings) {
+        _GameSettings = GameSettings;
+        _fruitLayer = new FruitLayer(_GameSettings.stage, _GameSettings.fruitLayerOptions);
 
         _mouseEventHandler = new MouseEventHandler();
-        _collisionDispather = new CollisionDispatcher();
-        _fruitDrawer = new FruitDrawer(stage, fruitLayer);
+        _collisionDispatcher = new CollisionDispatcher();
+        _fruitDrawer = new FruitDrawer(_GameSettings.stage, _fruitLayer);
 
         _boundingBox = {
             x: {
                 min: 100,
-                max: gameFieldOptions.width - 100
+                max: _GameSettings.gameFieldOptions.width - 100
             },
             y: {
-                min: gameFieldOptions.heigh,
-                max: gameFieldOptions.height
+                min: _GameSettings.gameFieldOptions.height,
+                max: _GameSettings.gameFieldOptions.height
             }
         };
 
-        //background.draw();
         attachMouseEvents();
     }
 
@@ -51,10 +52,15 @@ define(function (require) {
         return fruitsCollection;
     }
 
+//    function updateGame() {
+//        FruitFactory.addNewFruits(_fruitsCollection, _GameSettings.gamePlayOptions.maxFruitsPerRound, _boundingBox);
+//        _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
+//    }
+
     function updateCanvas() {
-        var fruitsCollection = getRandomOfNumberFruits();
-        //console.dir(_collisionDispather);
-        _fruitDrawer.drawFruits(fruitsCollection, _collisionDispather, _mouseEventHandler);
+        _fruitsCollection = getRandomOfNumberFruits();
+        //console.dir(_collisionDispatcher);
+        _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
     }
 
     function attachMouseEvents() {
@@ -74,9 +80,11 @@ define(function (require) {
         };
     }
 
-    function updateResult(points) {}
+    function updateResult(points) {
+    }
 
-    function endGame() {}
+    function endGame() {
+    }
 
     // Only this is public
     GameEngine.prototype.startGame = function (speedInMs) {
