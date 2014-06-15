@@ -98,26 +98,20 @@ define(function(require) {
     /// <summary>
     /// Draws the player earned points
     /// </summary>
-    function drawResult(layer, player) {
+    function drawResult(layer, points) {
 
-        // if points haven't changed between the previous drawing and the current, do not redraw
-        if (player.points !== player.previousPointsCountState) {
+        var context = getLayerContext(layer);
 
-            // var canvas = document.getElementById(layer.canvas._canvas.id);
-            // var ctx = canvas.getContext('2d');
-            var context = getLayerContext(layer);
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 
-            context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-
-            context.font = "30px Georgia";
-            var gradient = context.createLinearGradient(0, 0, context.canvas.width, 0);
-            gradient.addColorStop("0", "magenta");
-            gradient.addColorStop("0.5", "blue");
-            gradient.addColorStop("1.0", "red");
-            // Fill with gradient
-            context.fillStyle = gradient;
-            context.fillText(player.points + ' points', 10, 50);
-        }
+        context.font = "30px Georgia";
+        var gradient = context.createLinearGradient(0, 0, context.canvas.width, 0);
+        gradient.addColorStop("0", "magenta");
+        gradient.addColorStop("0.5", "blue");
+        gradient.addColorStop("1.0", "red");
+        // Fill with gradient
+        context.fillStyle = gradient;
+        context.fillText(points + ' points', 10, 50);
     }
 
     ObjectDrawer.prototype.drawMouseTrails = function(layer, mousePath) {

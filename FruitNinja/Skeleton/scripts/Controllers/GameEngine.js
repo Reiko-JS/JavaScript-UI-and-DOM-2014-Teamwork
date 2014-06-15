@@ -88,8 +88,11 @@ define(function(require) {
             _fruitsCollection = getRandomOfNumberFruits(_boundingBox);
         }
 
-        //_playerResults.drawResults(_player);
-        _objectDrawer.drawResult(_playerResultsLayer, _player);
+        // if points haven't changed between the previous drawing and the current, do not redraw
+        if (collectedPoints !== 0) {
+            _objectDrawer.drawResult(_playerResultsLayer, _player.points);
+        };
+
     }
 
     function attachMouseEvents() {
