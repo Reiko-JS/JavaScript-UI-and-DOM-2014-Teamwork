@@ -3,7 +3,7 @@ define(function(require) {
 
     var ObjectDrawer = require('./ObjectDrawer.js'),
         Utility = require('../Helper/Utility.js'),
-        FruitLayer = require('../Models/FruitLayer.js'),
+        CanvasLayer = require('../Models/CanvasLayer.js'),
         MouseEventHandler = require('./MouseEventHandler.js'),
         CollisionDispatcher = require('./CollisionDispatcher.js'),
         FruitFactory = require('../Models/FruitFactory.js');
@@ -12,7 +12,7 @@ define(function(require) {
         _fruitLayer = null,
         _mouseEventHandler = null,
         _collisionDispatcher = null,
-        _fruitDrawer = null;
+        _objectDrawer = null;
 
     var _boundingBox = null,
         _fruitsCollection = [],
@@ -21,13 +21,13 @@ define(function(require) {
     // Constructor
     function GameEngine(GameSettings) {
         FruitFactory.loadImages();
-
         _GameSettings = GameSettings;
-        _fruitLayer = new FruitLayer(_GameSettings.stage, _GameSettings.fruitLayerOptions);
-
         _mouseEventHandler = new MouseEventHandler();
         _collisionDispatcher = new CollisionDispatcher();
-        _fruitDrawer = new ObjectDrawer(_fruitLayer);
+        _objectDrawer = new ObjectDrawer();
+
+        var fruitCanvasLayer = new CanvasLayer(_GameSettings.stage, _GameSettings.fruitLayerOptions);
+        _fruitLayer = fruitCanvasLayer.getLayer();
 
         _boundingBox = {
             x: {
@@ -39,7 +39,7 @@ define(function(require) {
                 max: _GameSettings.gameFieldOptions.height
             }
         };
-        _fruitsCollection = getRandomOfNumberFruits();
+        _fruitsCollection = getRandomOfNumberFruits(_boundingBox);
 
         attachMouseEvents();
     }
@@ -47,11 +47,11 @@ define(function(require) {
     /// <summary>
     /// Gets a random ammount of randfom fruits
     /// </summary>
-    function getRandomOfNumberFruits() {
+    function getRandomOfNumberFruits(boundingBox) {
         var fruitsCollection = [];
         var randomLength = Utility.getRandomNumber(2, 12);
         for (var i = 0; i < randomLength; i++) {
-            fruitsCollection.push(FruitFactory.getRandomFruit(_boundingBox));
+            fruitsCollection.push(FruitFactory.getRandomFruit(boundingBox));
         }
 
         return fruitsCollection;
@@ -63,20 +63,19 @@ define(function(require) {
     //    }
 
     function updateCanvas() {
-        var isDrawn = _fruitDrawer.drawFruits(_fruitsCollection);
+        var isDrawn = _objectDrawer.drawFruits(_fruitLayer, _fruitsCollection);
 
         // TODO: Which of these function must be first ???
         if (_mouseEventHandler.isMouseDown) {
             _collisionDispatcher.checkForCuttedOffFruits(_mouseEventHandler.path, _fruitsCollection);
         }
 
-        _fruitDrawer.drawMouseTrails(_mouseEventHandler.path);
+        _objectDrawer.drawMouseTrails(_fruitLayer, _mouseEventHandler.path);
 
         if (isDrawn !== false) {
             window.requestAnimationFrame(updateCanvas);
-        }
-        else {
-            _fruitsCollection = getRandomOfNumberFruits();
+        } else {
+            _fruitsCollection = getRandomOfNumberFruits(_boundingBox);
         }
     }
 

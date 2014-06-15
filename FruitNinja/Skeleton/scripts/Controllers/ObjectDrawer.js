@@ -4,27 +4,21 @@ define(function(require) {
     var FruitFactory = require('../Models/FruitFactory.js'),
         Utility = require('../Helper/Utility.js');
 
-    var _fruitLayer = null;
-    var _context = null;
-
-    // TODO save image locally
+    // TODO: save image locally
     var _knigeImg = new Image();
     _knigeImg.src = 'http://www.tricedesigns.com/wp-content/uploads/2012/01/brush2.png';
 
-    var _layerCenter = null,
+    var _layerCenterY = null,
         _fruitRadius = 100,
         _currentAngle = 0,
         _fruitImg = null;
 
     // Constructor
-    function ObjectDrawer(fruitLayer) {
-        _fruitLayer = fruitLayer.draw(); // draw and return the fruit layer (Kinetic.js object)
-        _context = _fruitLayer.canvas._canvas.getContext('2d');
+    function ObjectDrawer() {}
 
-        _layerCenter = {
-            x: _fruitLayer.canvas._canvas.width / 2,
-            y: _fruitLayer.canvas._canvas.height / 2 - 100
-        };
+    function getLayerContext(layer) {
+        var context = layer.canvas._canvas.getContext('2d');
+        return context;
     }
 
     function getFruitImgSrc(fruit) {
@@ -39,7 +33,8 @@ define(function(require) {
         context.drawImage(img, x, y);
     }
 
-    function drawMouseTrails(mousePath) {
+    function drawMouseTrails(layer, mousePath) {
+        var context = getLayerContext(layer);
         var lastPoint, currentPoint, distance, angle, x, y;
 
         for (var i = 1; i < mousePath.length; i++) {
@@ -58,7 +53,7 @@ define(function(require) {
             for (var j = 0; j < distance; j++) {
                 x = lastPoint.x + (Math.sin(angle) * j) - 15;
                 y = lastPoint.y + (Math.cos(angle) * j) - 15;
-                drawImage(_context, x, y, _knigeImg);
+                drawImage(context, x, y, _knigeImg);
             }
 
             lastPoint = currentPoint;
@@ -68,24 +63,27 @@ define(function(require) {
     /// <summary>
     /// Draws next frame, if the fruits goes out of the canvas -> return false
     /// </summary>
-    function drawFruitsAnimation(fruitCollection) {
-        _context.clearRect(0, 0, _context.canvas.width, _context.canvas.height);
+    function drawFruitsAnimation(layer, fruitCollection) {
+        var context = getLayerContext(layer);
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+
+        var layerCenterY = layer.canvas._canvas.height / 2 - 100;
         _currentAngle += 1.5;
 
         for (var i = 0; i < fruitCollection.length; i++) {
             var movedPoint = Utility.movePoint({
                 x: fruitCollection[i].x,
-                y: _layerCenter.y - 150,
+                y: layerCenterY - 150,
                 radius: _fruitRadius,
                 angle: _currentAngle,
                 factorY: fruitCollection[i].factorY
-            }, _context.canvas.height, fruitCollection[i].direction);
+            }, context.canvas.height, fruitCollection[i].direction);
 
             fruitCollection[i].mX = movedPoint.x;
             fruitCollection[i].mY = movedPoint.y;
 
             _fruitImg = getFruitImgSrc(fruitCollection[i]);
-            drawImage(_context, movedPoint.x + i * 10, movedPoint.y, _fruitImg);
+            drawImage(context, movedPoint.x + i * 10, movedPoint.y, _fruitImg);
 
             if (_currentAngle >= 180) {
                 fruitCollection = null;
@@ -97,12 +95,17 @@ define(function(require) {
         return true;
     }
 
-    ObjectDrawer.prototype.drawMouseTrails = function(mousePath) {
-        drawMouseTrails(mousePath);
+    /// <summary>
+    /// ...
+    /// </summary>
+    function drawResult(layer, result) {}
+
+    ObjectDrawer.prototype.drawMouseTrails = function(layer, mousePath) {
+        drawMouseTrails(layer, mousePath);
     };
 
-    ObjectDrawer.prototype.drawFruits = function(fruitCollection) {
-        return drawFruitsAnimation(fruitCollection);
+    ObjectDrawer.prototype.drawFruits = function(layer, fruitCollection) {
+        return drawFruitsAnimation(layer, fruitCollection);
     };
 
     return ObjectDrawer;
