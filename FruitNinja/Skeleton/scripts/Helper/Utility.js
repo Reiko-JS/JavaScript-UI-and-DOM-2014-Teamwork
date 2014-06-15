@@ -13,7 +13,7 @@ define(function(require) {
     /// </summary>
     function getRandomDirection() {
         var rndNumber = getRandomNumber(0, 500);
-        var isLeft = ((rndNumber % 2) & 1);
+        var isLeft = rndNumber % 2 === 0;
         return isLeft;
     }
 
@@ -37,7 +37,7 @@ define(function(require) {
     }
 
     function movePoint(point, canvasHeight, isDirectionLeft) {
-        var pRadius = isDirectionLeft ? point.radius : -point.radius;
+        var pRadius = isDirectionLeft === true ? point.radius : -point.radius;
 
         return {
             x: point.x + pRadius * Math.cos(point.angle / 180 * Math.PI) / 1.2,
@@ -61,8 +61,8 @@ define(function(require) {
         calcAngleBetweenTwoPoints: function(point1, point2) {
             return calcAngleBetweenTwoPoints(point1, point2);
         },
-        movePoint: function(point, isDirectionLeft) {
-            return movePoint(point, isDirectionLeft);
+        movePoint: function(point, canvasHeight, isDirectionLeft) {
+            return movePoint(point, canvasHeight, isDirectionLeft);
         }
     };
 });

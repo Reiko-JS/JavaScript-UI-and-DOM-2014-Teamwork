@@ -28,11 +28,10 @@ define(function(require) {
         _mouseEventHandler = new MouseEventHandler();
         _collisionDispatcher = new CollisionDispatcher();
         _objectDrawer = new ObjectDrawer();
+        _player = new Player(_GameSettings.playerOptions);
 
         var fruitCanvasLayer = new CanvasLayer(_GameSettings.stage, _GameSettings.fruitLayerOptions);
         _fruitLayer = fruitCanvasLayer.getLayer();
-
-        _player = new Player(_GameSettings.playerOptions);
 
         var playerResultCanvasLayer = new CanvasLayer(_GameSettings.stage, _GameSettings.playerLayerOptions);
         _playerResultsLayer = playerResultCanvasLayer.getLayer();
@@ -40,7 +39,7 @@ define(function(require) {
         _boundingBox = {
             x: {
                 min: 100,
-                max: _GameSettings.gameFieldOptions.width - 100
+                max: _GameSettings.gameFieldOptions.width - 200
             },
             y: {
                 min: _GameSettings.gameFieldOptions.height,
@@ -61,7 +60,6 @@ define(function(require) {
         for (var i = 0; i < randomLength; i++) {
             fruitsCollection.push(FruitFactory.getRandomFruit(boundingBox));
         }
-
         return fruitsCollection;
     }
 
@@ -77,22 +75,21 @@ define(function(require) {
         // TODO: Which of these function must be first ???
         if (_mouseEventHandler.isMouseDown) {
             collectedPoints = _collisionDispatcher.checkForCuttedOffFruits(_mouseEventHandler.path, _fruitsCollection);
-            _player.updatePoints(collectedPoints);
-        }
+            _objectDrawer.drawMouseTrails(_fruitLayer, _mouseEventHandler.path);
 
-        _objectDrawer.drawMouseTrails(_fruitLayer, _mouseEventHandler.path);
+            // if points haven't changed between the previous drawing and the current, do not redraw
+            if (collectedPoints !== 0) {
+                _player.updatePoints(collectedPoints);
+                _objectDrawer.drawResult(_playerResultsLayer, _player.points);
+            }
+        }
 
         if (isDrawn !== false) {
             window.requestAnimationFrame(updateCanvas);
-        } else {
+        }
+        else {
             _fruitsCollection = getRandomOfNumberFruits(_boundingBox);
         }
-
-        // if points haven't changed between the previous drawing and the current, do not redraw
-        if (collectedPoints !== 0) {
-            _objectDrawer.drawResult(_playerResultsLayer, _player.points);
-        };
-
     }
 
     function attachMouseEvents() {

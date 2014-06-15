@@ -22,11 +22,13 @@ define(function(require) {
         var collectedPoints = 0;
 
         for (var i = 0; i < fruitCollection.length; i++) {
+            if (fruitCollection[i].isCut) {
+                continue;
+            }
+
             for (var j = 0; j < mousePath.length; j++) {
                 if (isMouseOverFruit(mousePath[j], fruitCollection[i].mX, fruitCollection[i].mY)) {
-                    if (!fruitCollection[i].isCut) {
-                        collectedPoints += fruitCollection[i].points;
-                    }
+                    collectedPoints += fruitCollection[i].points;
                     fruitCollection[i].cutOff();
                     break;
                 }

@@ -83,6 +83,7 @@ define(function(require) {
             fruitCollection[i].mY = movedPoint.y;
 
             _fruitImg = getFruitImgSrc(fruitCollection[i]);
+            //drawImage(context, movedPoint.x + i * 10, movedPoint.y, _fruitImg);
             drawImage(context, movedPoint.x + i * 10, movedPoint.y, _fruitImg);
 
             if (_currentAngle >= 180) {
@@ -99,16 +100,15 @@ define(function(require) {
     /// Draws the player earned points
     /// </summary>
     function drawResult(layer, points) {
-
         var context = getLayerContext(layer);
-
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-
         context.font = "30px Georgia";
+
         var gradient = context.createLinearGradient(0, 0, context.canvas.width, 0);
         gradient.addColorStop("0", "magenta");
         gradient.addColorStop("0.5", "blue");
         gradient.addColorStop("1.0", "red");
+        
         // Fill with gradient
         context.fillStyle = gradient;
         context.fillText(points + ' points', 10, 50);

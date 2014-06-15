@@ -61,7 +61,7 @@ define(function (require) {
             hitImg = _imagesFruitsHit[randomNumber];
 
         var coords = Utility.getRandomCoords(coordsBoundaries),
-            rndDir = Utility.getRandomDirection(coords, coordsBoundaries),
+            rndDir = Utility.getRandomDirection(),
             angle = Utility.getRandomNumber(0, 30),
             factorY = Utility.getRandomNumber(2.5, 5);
 
