@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     var FruitDrawer = require('./FruitDrawer.js'),
@@ -16,6 +16,8 @@ define(function (require) {
 
     var _boundingBox = null,
         _fruitsCollection = [];
+
+    var _isRunning = false;
 
     FruitFactory.loadImages();
 
@@ -52,45 +54,51 @@ define(function (require) {
         return fruitsCollection;
     }
 
-//    function updateGame() {
-//        FruitFactory.addNewFruits(_fruitsCollection, _GameSettings.gamePlayOptions.maxFruitsPerRound, _boundingBox);
-//        _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
-//    }
+    //    function updateGame() {
+    //        FruitFactory.addNewFruits(_fruitsCollection, _GameSettings.gamePlayOptions.maxFruitsPerRound, _boundingBox);
+    //        _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
+    //    }
 
     function updateCanvas() {
         _fruitsCollection = getRandomOfNumberFruits();
-        //console.dir(_collisionDispatcher);
         _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
     }
 
     function attachMouseEvents() {
         // OnMouseMove
-        window.onmousemove = function (event) {
+        window.onmousemove = function(event) {
             _mouseEventHandler.updateCoords(event, _mouseEventHandler, 500);
         };
 
         // OnMouseDown
-        window.onmousedown = function (event) {
+        window.onmousedown = function(event) {
             _mouseEventHandler.mouseDown(event, _mouseEventHandler);
         };
 
         // OnMouseUp
-        window.onmouseup = function (event) {
+        window.onmouseup = function(event) {
             _mouseEventHandler.mouseUp(event, _mouseEventHandler);
         };
     }
 
-    function updateResult(points) {
-    }
+    function updateResult(points) {}
 
-    function endGame() {
-    }
+    function endGame() {}
 
-    // Only this is public
-    GameEngine.prototype.startGame = function (speedInMs) {
-        setInterval(function () {
-            updateCanvas();
-        }, 2000);
+    // This function is public
+    GameEngine.prototype.isRunning = function(speedInMs) {
+        return _isRunning;
+    };
+
+    // This function is public
+    GameEngine.prototype.startGame = function(speedInMs) {
+        if (!_isRunning) {
+            setInterval(function() {
+                updateCanvas();
+            }, 2000);
+
+            _isRunning = true;
+        }
     };
 
     return GameEngine;

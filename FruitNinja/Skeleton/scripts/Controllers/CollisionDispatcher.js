@@ -13,8 +13,7 @@ define(function(require) {
     }
 
     // mouseCoords is array of last 10-20 mouse coords that was on the screen { x, y }
-    CollisionDispatcher.prototype.checkForCuttedOffFruits = function checkForCuttedOffFruits(mouseCoords, fruit, x, y) {
-        //console.log(mouseCoords.isMouseDown);
+    CollisionDispatcher.prototype.checkForCuttedOffFruits = function(mouseCoords, fruit, x, y) {
         if (mouseCoords.isMouseDown) {
             for (var j = 0; j < mouseCoords.path.length; j++) {
                 var mouseCoordinate = mouseCoords.path[j];
@@ -23,12 +22,10 @@ define(function(require) {
                     y <= mouseCoordinate.y &&
                     (y + _fruitsHeight) > mouseCoordinate.y) {
                     fruit.cutOff();
-                    //return; //What if more than one fruit is cutted on these coordinates?
+                    return;
                 }
             }
         }
-        // Check every element from gameElements\
-        // if mouse was over the fruit -> fruit.cutOff();
     };
 
     return CollisionDispatcher;

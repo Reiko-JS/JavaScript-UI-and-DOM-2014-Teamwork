@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     var gamePlayOptions = {
@@ -24,6 +24,15 @@ define(function (require) {
         height: 500
     };
 
+    var eventListenerOptions = {
+        startGameButtonId: '#start',
+        exitFullscreenButtonId: '#exit-fullscreen',
+        toggleFullscreenButtonId: '#fullscreen',
+        gameFieldId: '#game-field',
+        backgroundLayerId: '#background-layer',
+        startGameSoundSrc: 'sounds/gong.mp3'
+    };
+
     var stage = new Kinetic.Stage({
         container: 'game-field',
         width: gameFieldOptions.width,
@@ -33,6 +42,7 @@ define(function (require) {
     return {
         gameFieldOptions: gameFieldOptions,
         fruitLayerOptions: fruitLayerOptions,
+        eventListenerOptions: eventListenerOptions,
         stage: stage,
         gamePlayOptions: gamePlayOptions
     };

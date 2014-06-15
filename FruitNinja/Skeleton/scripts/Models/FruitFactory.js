@@ -1,31 +1,25 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     var Fruit = require('./Fruit.js');
     var Utility = require('./../Helper/Utility.js');
 
-    var fruits = [
-        {
-            type: 'orange',
-            points: 20
-        },
-        {
-            type: 'coconut',
-            points: 30
-        },
-        {
-            type: 'watermelon',
-            points: 30
-        },
-        {
-            type: 'pear',
-            points: 30
-        },
-        {
-            type: 'lime',
-            points: 30
-        }
-    ];
+    var fruits = [{
+        type: 'orange',
+        points: 20
+    }, {
+        type: 'coconut',
+        points: 30
+    }, {
+        type: 'watermelon',
+        points: 30
+    }, {
+        type: 'pear',
+        points: 30
+    }, {
+        type: 'lime',
+        points: 30
+    }];
 
     var _imagesFruits = [];
     var _imagesFruitsHit = [];
@@ -75,6 +69,9 @@ define(function (require) {
         return newFruit;
     }
 
+    /// <summary>
+    /// Push random of number fruits to 'fruitsList'
+    /// </summary>
     function addNewFruits(fruitsList, maxFruits, boundingBox) {
         var randomLength = Utility.getRandomNumber(1, (maxFruits - fruitsList.length) / 2);
         for (var i = 0; i < randomLength; i++) {
