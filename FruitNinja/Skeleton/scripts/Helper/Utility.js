@@ -1,4 +1,4 @@
-define(function (require) {
+define(function(require) {
     'use strict';
 
     /// <summary>
@@ -28,22 +28,41 @@ define(function (require) {
         };
     }
 
-    function calculateObjectCoordinates(object) {
+    function calcDistanceBetweenTwoPoints(point1, point2) {
+        return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+    }
+
+    function calcAngleBetweenTwoPoints(point1, point2) {
+        return Math.atan2(point2.x - point1.x, point2.y - point1.y);
+    }
+
+    function movePoint(point, canvasHeight, isDirectionLeft) {
+        var pRadius = isDirectionLeft ? point.radius : -point.radius;
+
         return {
-            x: 0,
-            y: 0
+            x: point.x + pRadius * Math.cos(point.angle / 180 * Math.PI) / 1.2,
+            y: canvasHeight - (point.y + point.radius * Math.sin(point.angle / 180 * Math.PI) * point.factorY)
         };
     }
 
     return {
-        getRandomNumber: function (min, max) {
+        getRandomNumber: function(min, max) {
             return getRandomNumber(min, max);
         },
-        getRandomCoords: function (coordinateBoundaries) {
+        getRandomCoords: function(coordinateBoundaries) {
             return getRandomCoords(coordinateBoundaries);
         },
-        getRandomDirection: function (coordinates, coordinateBoundaries) {
+        getRandomDirection: function(coordinates, coordinateBoundaries) {
             return getRandomDirection(coordinates, coordinateBoundaries);
+        },
+        calcDistanceBetweenTwoPoints: function(point1, point2) {
+            return calcDistanceBetweenTwoPoints(point1, point2);
+        },
+        calcAngleBetweenTwoPoints: function(point1, point2) {
+            return calcAngleBetweenTwoPoints(point1, point2);
+        },
+        movePoint: function(point, isDirectionLeft) {
+            return movePoint(point, isDirectionLeft);
         }
     };
 });

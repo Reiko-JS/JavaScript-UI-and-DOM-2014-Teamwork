@@ -1,29 +1,31 @@
 define(function(require) {
     'use strict';
 
-    var _context = null;
-    var _gameElements = null;
     var _fruitsWidth = 100;
     var _fruitsHeight = 100;
 
     // Constructor
-    function CollisionDispatcher(canvasCtx, gameElements) {
-        _context = canvasCtx;
-        _gameElements = gameElements;
+    function CollisionDispatcher() {}
+
+    /// <summary>
+    /// Check if mouseCoordinate { x, y } is over fruit { fX, fY }
+    /// </summary>
+    function isMouseOverFruit(mouseCoordinate, x, y) {
+        return x <= mouseCoordinate.x && (x + _fruitsWidth) > mouseCoordinate.x &&
+            y <= mouseCoordinate.y && (y + _fruitsHeight) > mouseCoordinate.y;
     }
 
-    // mouseCoords is array of last 10-20 mouse coords that was on the screen { x, y }
-    CollisionDispatcher.prototype.checkForCuttedOffFruits = function(mouseCoords, fruit, x, y) {
-        if (mouseCoords.isMouseDown) {
-            for (var j = 0; j < mouseCoords.path.length; j++) {
-                var mouseCoordinate = mouseCoords.path[j];
-                if (x <= mouseCoordinate.x &&
-                    (x + _fruitsWidth) > mouseCoordinate.x &&
-                    y <= mouseCoordinate.y &&
-                    (y + _fruitsHeight) > mouseCoordinate.y) {
-                    fruit.cutOff();
-                    return;
-                }
+    /// <summary>
+    /// 'mouseCoords' is collection of last 10-20 mouse coords that were on the screen { x, y }
+    /// </summary>
+    CollisionDispatcher.prototype.checkForCuttedOffFruits = function(mouseCoords, fruit, fX, fY) {
+        if (!mouseCoords.isMouseDown) {
+            return;
+        }
+
+        for (var j = 0; j < mouseCoords.path.length; j++) {
+            if (isMouseOverFruit(mouseCoords.path[j], fX, fY)) {
+                fruit.cutOff();
             }
         }
     };
