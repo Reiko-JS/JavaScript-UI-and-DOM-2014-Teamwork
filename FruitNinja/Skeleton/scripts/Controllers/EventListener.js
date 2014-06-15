@@ -9,14 +9,8 @@ define(function(require) {
     function EventListener(gameEngine, EventSettings) {
         _gameEngine = gameEngine;
         _EventSettings = EventSettings;
-
-        try {
-            _startGameSound = new Audio(_EventSettings.startGameSoundSrc);
-        }
-        catch (ex) {
-            // new Audio() does not work for IE 10 !!!
-            // Error -> SCRIPT16385: Not implemented
-        }
+		
+        _startGameSound = new Audio(_EventSettings.startGameSoundSrc);
     }
 
     /// <summary>
@@ -25,10 +19,25 @@ define(function(require) {
     function startGame() {
         if (!_gameEngine.isRunning()) {
             _gameEngine.startGame();
-            
-            if (_startGameSound) {
-                _startGameSound.play();
-            }
+			
+			var ua = window.navigator.userAgent;
+			var msie = ua.indexOf("MSIE ");
+			
+			if(msie>0){
+				$('<object/>')
+					.attr('data', _EventSettings.startGameSoundSrc)
+					.attr('type', 'audio/'+_EventSettings.startGameSoundSrc.split('.').pop())
+					.hide()
+					.append(
+						$('<embed/>').attr('src', _EventSettings.startGameSoundSrc)
+					)
+					.appendTo('body');
+				// new Audio() does not work for IE 10 !!!
+				// Error -> SCRIPT16385: Not implemented
+			}
+			else{
+				_startGameSound.play();
+			}
         }
     }
 
