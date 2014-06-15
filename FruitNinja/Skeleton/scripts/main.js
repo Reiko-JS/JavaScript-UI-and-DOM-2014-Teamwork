@@ -6,7 +6,7 @@ define(function (require) {
         GameSettings = require('scripts/Models/GameSettings.js');
 
     var gameEngine = null;
-    var audio = new Audio('sounds/gong.mp3');
+    var audio = new Audio('sounds/gong.wav');
 
     function onButtonStart() {
         if (!gameEngine) {
