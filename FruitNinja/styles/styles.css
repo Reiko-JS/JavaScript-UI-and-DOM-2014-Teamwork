@@ -26,6 +26,7 @@ canvas#fruit-layer {
     top: 400px;
     width: 300px;
     height: 300px;
+    z-index: 2;
 }
 
 #exit-fullscreen {
