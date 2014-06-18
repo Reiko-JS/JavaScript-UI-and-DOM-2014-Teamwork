@@ -1,11 +1,17 @@
 define(function (require) {
     'use strict';
 
-    function MouseEventHandler() {
+    var _EventSettings = null,
+        _slashSound = null;
+
+    function MouseEventHandler(EventSettings) {
         this.x = null;
         this.y = null;
         this.path = [];
         this.isMouseDown = false;
+        _EventSettings = EventSettings;
+        _EventSettings = EventSettings;
+        _slashSound = new Audio(_EventSettings.slashSoundSrc);
     }
 
     MouseEventHandler.prototype.mouseDown = function (event, mouseObj) {
@@ -15,11 +21,13 @@ define(function (require) {
             y: event.offsetY || event.layerY
         });
         //console.log(mouseObj.isMouseDown);
-    }
+    };
 
     MouseEventHandler.prototype.mouseUp = function (event, mouseObj) {
         mouseObj.isMouseDown = false;
         this.path = [];
+        _slashSound.pause();
+        _slashSound.currentTime = 0;
         //console.log(mouseObj.isMouseDown);
     };
 
@@ -55,6 +63,7 @@ define(function (require) {
                 x: event.offsetX || event.layerX,
                 y: event.offsetY || event.layerY
             });
+            _slashSound.play();
         }
     };
 
@@ -70,7 +79,7 @@ define(function (require) {
             return {
                 x: x,
                 y: y
-            }
+            };
         })(this.x, this.y);
 
         console.log(coords);

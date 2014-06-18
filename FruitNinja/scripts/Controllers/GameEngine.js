@@ -25,7 +25,8 @@ define(function (require) {
     function GameEngine(GameSettings) {
         FruitFactory.loadImages();
         _GameSettings = GameSettings;
-        _mouseEventHandler = new MouseEventHandler();
+        // TODO object for mouse event settings
+        _mouseEventHandler = new MouseEventHandler(GameSettings.eventListenerOptions);
         _collisionDispatcher = new CollisionDispatcher();
         _objectDrawer = new ObjectDrawer();
         _player = new Player(_GameSettings.playerOptions);

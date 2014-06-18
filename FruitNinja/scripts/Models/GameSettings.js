@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var gamePlayOptions = {
@@ -42,7 +42,8 @@ define(function(require) {
         gameFieldId: '#game-field',
         backgroundLayerId: '#background-layer',
         playerLayerId: '#player-layer',
-        startGameSoundSrc: 'sounds/gong.wav'
+        startGameSoundSrc: 'sounds/gong.wav',
+        slashSoundSrc: 'sounds/slash.wav',
     };
 
     var stage = new Kinetic.Stage({
