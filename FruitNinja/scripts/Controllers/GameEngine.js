@@ -103,8 +103,6 @@ define(function (require) {
         };
     }
 
-    function updateResult(points) {}
-
     function endGame() {}
 
     // This function is public

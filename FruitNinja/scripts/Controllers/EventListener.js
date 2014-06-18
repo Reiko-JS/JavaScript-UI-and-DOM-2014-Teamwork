@@ -20,12 +20,8 @@ define(function(require) {
             _gameEngine.startGame();
 
             var ua = window.navigator.userAgent;
-            console.log('Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; Zune 4.7)');
-            console.log(ua);
             var msie = ua.indexOf('MSIE');
             var ie11 = ua.indexOf('Trident');
-
-            console.log(msie);
 
             if (msie > 0 || ie11 > 0) {
                 $('<object/>')
@@ -86,7 +82,10 @@ define(function(require) {
     // Public function
     EventListener.prototype.setButtonEvents = function(gameEngine) {
         // On Start button click - starts the game
-        $(_EventSettings.startGameButtonId).on("click", startGame);
+        $(_EventSettings.startGameButtonId).on('click', function () {
+            startGame();
+            $('#start').hide();
+        });
 
         // Start fullscreen mode Button
         $(_EventSettings.toggleFullscreenButtonId).on('click', function() {
@@ -94,7 +93,8 @@ define(function(require) {
                 resizeFieldOnToggleFullScreenMode($(this), _EventSettings.exitFullscreenButtonId, true);
             }
 
-            startGame();
+            //startGame();
+
         });
 
         // Exit from fullscreen mode Button

@@ -24,7 +24,7 @@ define(function(require) {
     function getRandomCoords(coordBoundaries) {
         return {
             x: getRandomNumber(coordBoundaries.x.min, coordBoundaries.x.max),
-            y: getRandomNumber(coordBoundaries.y.min, coordBoundaries.y.max),
+            y: getRandomNumber(coordBoundaries.y.min, coordBoundaries.y.max)
         };
     }
 

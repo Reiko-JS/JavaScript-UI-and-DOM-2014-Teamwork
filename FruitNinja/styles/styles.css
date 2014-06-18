@@ -16,6 +16,24 @@ canvas#fruit-layer {
     z-index: 1;
 }
 
-button#exit-fullscreen {
+#exit-fullscreen {
     display: none;
 }
+
+#start {
+    position: absolute;
+    left: 525px;
+    top: 400px;
+    width: 300px;
+    height: 300px;
+}
+
+#exit-fullscreen {
+    height: 30px;
+}
+
+#fullscreen {
+    width: 100px;
+    height: 100px;
+}
+
