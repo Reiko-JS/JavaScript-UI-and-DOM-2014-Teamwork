@@ -14,7 +14,10 @@ define(function (require) {
         this.isMouseDown = false;
         _EventSettings = EventSettings;
         _EventSettings = EventSettings;
-        initSlashSound();
+        //initSlashSound();
+        /*function initSlashSound() {
+            _slashSound = new Audio(_EventSettings.slashSoundSrc);
+        }*/
     }
 
     MouseEventHandler.prototype.mouseDown = function (event, mouseObj) {
@@ -30,6 +33,8 @@ define(function (require) {
     }
 
     function startSlashSound() {
+        if (_slashSound === null)
+            return false;
         if (_slashSound.paused) {
             _slashSound.currentTime = 0;
             _slashSound.play();
@@ -39,6 +44,8 @@ define(function (require) {
     }
 
     function restartSlashSound() {
+        if (_slashSound === null)
+            return;
         _slashSound.currentTime = 0.3;
         if (_slashSound.paused) {
             _slashSound.play();
@@ -46,7 +53,8 @@ define(function (require) {
     }
 
     function stopSlashSound() {
-        _slashSound.pause();
+        if (_slashSound !== null)
+            _slashSound.pause();
     }
 
     MouseEventHandler.prototype.mouseUp = function (event, mouseObj) {
@@ -85,33 +93,45 @@ define(function (require) {
                 x: event.offsetX || event.layerX,
                 y: event.offsetY || event.layerY
             });
-            if (startSlashSound()) {
-                //just started playing the sound, remember the position
-                _slashPosition = {
-                    x: event.layerX,
-                    y: event.layerY
-                };
+
+            var moveX = _prevPosition ? (event.layerX - _prevPosition.x) : 0,
+                moveY = _prevPosition ? (event.layerY - _prevPosition.y) : 0;
+
+            if ((Math.abs(moveX) + Math.abs(moveY)) > 32) {
+                if (startSlashSound()) {
+                    //just started playing the sound, remember the position
+                    _slashPosition = {
+                        x: event.layerX,
+                        y: event.layerY
+                    };
+                } else if (_slashSound !== null) {
+                    //sound is alreasy playing
+                    var slashVecX = event.layerX - _slashPosition.x,
+                        slashVecY = event.layerY - _slashPosition.y;
+                    if (slashVecX * moveX + slashVecY * moveY < 0) {
+                        //changed slash direction
+                        restartSlashSound();
+                        _slashPosition.x = event.layerX;
+                        _slashPosition.y = event.layerY;
+                    }
+                }
+            }
+            if (_prevPosition) {
+                _prevPosition.x = event.layerX;
+                _prevPosition.y = event.layerY;
+            } else {
                 _prevPosition = {
                     x: event.layerX,
                     y: event.layerY
                 };
-            } else {
-                //sound is alreasy playing
-                var slashVecX = event.layerX - _slashPosition.x,
-                    slashVecY = event.layerY - _slashPosition.y,
-                    moveX = event.layerX - _prevPosition.x,
-                    moveY = event.layerY - _prevPosition.y;
-                if (slashVecX * moveX + slashVecY * moveY < 0 && (Math.abs(moveX) + Math.abs(moveY)) > 32) {
-                    //changed slash direction
-                    restartSlashSound();
-                    _slashPosition.x = event.layerX;
-                    _slashPosition.y = event.layerY;
-                }
-                _prevPosition.x = event.layerX;
-                _prevPosition.y = event.layerY;
             }
         }
     };
+
+    MouseEventHandler.prototype.onStart = function () {
+        //console.log("TESTTESTTEST");
+        initSlashSound();
+    }
 
     MouseEventHandler.prototype.getCoords = function () {
         if (this.x == null || this.y == null) {

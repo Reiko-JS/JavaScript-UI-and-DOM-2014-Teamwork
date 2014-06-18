@@ -26,7 +26,9 @@ define(function (require) {
         FruitFactory.loadImages();
         _GameSettings = GameSettings;
         // TODO object for mouse event settings
-        _mouseEventHandler = new MouseEventHandler(GameSettings.eventListenerOptions);
+        _mouseEventHandler = new MouseEventHandler(_GameSettings.eventListenerOptions);
+
+        //_mouseEventHandler = new MouseEventHandler();
         _collisionDispatcher = new CollisionDispatcher();
         _objectDrawer = new ObjectDrawer();
         _player = new Player(_GameSettings.playerOptions);
@@ -113,9 +115,12 @@ define(function (require) {
     // This function is public
     GameEngine.prototype.startGame = function (speedInMs) {
         if (!_isRunning) {
+            //_mouseEventHandler.initSlashSound;
             /*setInterval(function() {
                 updateCanvas();
             }, 2000);*/
+
+            _mouseEventHandler.onStart();
 
             window.requestAnimationFrame(updateCanvas);
 
