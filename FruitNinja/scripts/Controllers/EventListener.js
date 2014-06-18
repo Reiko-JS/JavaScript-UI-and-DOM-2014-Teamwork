@@ -32,12 +32,8 @@ define(function(require) {
                     .attr('data', _EventSettings.startGameSoundSrc)
                     .attr('type', 'audio/' + _EventSettings.startGameSoundSrc.split('.').pop())
                     .hide()
-                    .append(
-                        $('<embed/>').attr('src', _EventSettings.startGameSoundSrc)
-                )
+                    .append($('<embed/>').attr('src', _EventSettings.startGameSoundSrc))
                     .appendTo('body');
-                // new Audio() does not work for IE 10 !!!
-                // Error -> SCRIPT16385: Not implemented
             } else {
                 _startGameSound.play();
             }

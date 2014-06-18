@@ -64,11 +64,6 @@ define(function (require) {
         return fruitsCollection;
     }
 
-    //    function updateGame() {
-    //        FruitFactory.addNewFruits(_fruitsCollection, _GameSettings.gamePlayOptions.maxFruitsPerRound, _boundingBox);
-    //        _fruitDrawer.drawFruits(_fruitsCollection, _collisionDispatcher, _mouseEventHandler);
-    //    }
-
     function updateCanvas() {
         var isDrawn = _objectDrawer.drawFruits(_fruitLayer, _fruitsCollection);
         var collectedPoints = 0;
