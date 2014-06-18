@@ -52,7 +52,8 @@ define(function (require) {
     MouseEventHandler.prototype.mouseUp = function (event, mouseObj) {
         mouseObj.isMouseDown = false;
         this.path = [];
-        stopSlashSound();
+        //stopSlashSound();
+        setTimeout(stopSlashSound, 500);
         //console.log(mouseObj.isMouseDown);
     };
 
