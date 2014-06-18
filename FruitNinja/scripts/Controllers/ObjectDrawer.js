@@ -11,7 +11,11 @@ define(function (require) {
     var _layerCenterY = null,
         _fruitRadius = 100,
         _currentAngle = 0,
-        _fruitImg = null;
+        _fruitImg = null,
+        _prevFrameTime = null,
+        _ellapsedTime = 0,
+        _physicsFramesCount = 0,
+        _physicsFramesRate = 100; //the physics are calculated 100 times per second
 
     // Constructor
     function ObjectDrawer() {}
@@ -60,22 +64,42 @@ define(function (require) {
         }
     }
 
+    function getNewPhysicsFramesCount() {
+        var newPhysicsFrames = 0;
+        if (_prevFrameTime === null) {
+            //this is the first frame drawn
+            _prevFrameTime = new Date().getTime();
+        } else {
+            var time = new Date().getTime(),
+                deltaTime = time - _prevFrameTime;
+            _ellapsedTime += (deltaTime < 500) ? deltaTime : 0; //don't count the time when the browser window was hidden for >0.5 sec
+            var totalPhysicsFrames = (_ellapsedTime / 1000) * _physicsFramesRate; //time*rate
+            newPhysicsFrames = totalPhysicsFrames - _physicsFramesCount;
+            _physicsFramesCount = totalPhysicsFrames;
+            _prevFrameTime = time;
+        }
+        return newPhysicsFrames;
+    }
     /// <summary>
     /// Draws next frame, if the fruits goes out of the canvas -> return false
     /// </summary>
     function drawFruitsAnimation(layer, fruitCollection) {
-        var context = getLayerContext(layer);
+
+        var newPhysicsFrames = getNewPhysicsFramesCount(),
+            context = getLayerContext(layer),
+            layerCenterY = layer.canvas._canvas.height / 2 - 100;
+
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 
-        var layerCenterY = layer.canvas._canvas.height / 2 - 100;
-        _currentAngle += 1.5;
-
-        if (animateFruits(context, fruitCollection, layerCenterY)) {
-            drawFruits(context, fruitCollection);
-            return true;
-        } else {
-            return false;
+        for (var i = 0; i < newPhysicsFrames; i++) {
+            _currentAngle += 0.7;
+            if (!animateFruits(context, fruitCollection, layerCenterY)) {
+                return false;
+            }
         }
+
+        drawFruits(context, fruitCollection);
+        return true;
 
     }
 
