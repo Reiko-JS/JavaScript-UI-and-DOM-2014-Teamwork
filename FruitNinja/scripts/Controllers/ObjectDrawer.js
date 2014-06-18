@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var FruitFactory = require('../Models/FruitFactory.js'),
@@ -70,6 +70,16 @@ define(function(require) {
         var layerCenterY = layer.canvas._canvas.height / 2 - 100;
         _currentAngle += 1.5;
 
+        if (animateFruits(context, fruitCollection, layerCenterY)) {
+            drawFruits(context, fruitCollection);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    function animateFruits(context, fruitCollection, layerCenterY) {
         for (var i = 0; i < fruitCollection.length; i++) {
             var movedPoint = Utility.movePoint({
                 x: fruitCollection[i].x,
@@ -82,8 +92,20 @@ define(function(require) {
             fruitCollection[i].mX = movedPoint.x;
             fruitCollection[i].mY = movedPoint.y;
 
+            if (_currentAngle >= 180) {
+                fruitCollection = null;
+                _currentAngle = 0;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function drawFruits(context, fruitCollection) {
+        for (var i = 0; i < fruitCollection.length; i++) {
+
             _fruitImg = getFruitImgSrc(fruitCollection[i]);
-            drawImage(context, movedPoint.x + i * 10, movedPoint.y, _fruitImg);
+            drawImage(context, fruitCollection[i].mX + i * 10, fruitCollection[i].mY, _fruitImg);
 
             if (_currentAngle >= 180) {
                 fruitCollection = null;
@@ -91,8 +113,6 @@ define(function(require) {
                 return false;
             }
         }
-
-        return true;
     }
 
     /// <summary>
@@ -107,21 +127,21 @@ define(function(require) {
         gradient.addColorStop("0", "magenta");
         gradient.addColorStop("0.5", "blue");
         gradient.addColorStop("1.0", "red");
-        
+
         // Fill with gradient
         context.fillStyle = gradient;
         context.fillText(points + ' points', 10, 50);
     }
 
-    ObjectDrawer.prototype.drawMouseTrails = function(layer, mousePath) {
+    ObjectDrawer.prototype.drawMouseTrails = function (layer, mousePath) {
         drawMouseTrails(layer, mousePath);
     };
 
-    ObjectDrawer.prototype.drawFruits = function(layer, fruitCollection) {
+    ObjectDrawer.prototype.drawFruits = function (layer, fruitCollection) {
         return drawFruitsAnimation(layer, fruitCollection);
     };
 
-    ObjectDrawer.prototype.drawResult = function(layer, player) {
+    ObjectDrawer.prototype.drawResult = function (layer, player) {
         return drawResult(layer, player);
     };
 
