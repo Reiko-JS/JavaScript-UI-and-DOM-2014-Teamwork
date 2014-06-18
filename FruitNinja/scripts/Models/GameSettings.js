@@ -43,7 +43,7 @@ define(function (require) {
         backgroundLayerId: '#background-layer',
         playerLayerId: '#player-layer',
         startGameSoundSrc: 'sounds/gong.wav',
-        slashSoundSrc: 'sounds/slash.wav',
+        slashSoundSrc: 'sounds/slash-2.wav',
     };
 
     var stage = new Kinetic.Stage({
