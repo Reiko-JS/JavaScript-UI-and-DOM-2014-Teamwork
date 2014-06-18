@@ -2,7 +2,11 @@ define(function (require) {
     'use strict';
 
     var _EventSettings = null,
-        _slashSound = null;
+        _slashSound = null,
+        _timeoutID = null,
+        _soundTimeoutID = null,
+        _slashPosition = null,
+        _prevPosition = null;
 
     function MouseEventHandler(EventSettings) {
         this.x = null;
@@ -11,7 +15,7 @@ define(function (require) {
         this.isMouseDown = false;
         _EventSettings = EventSettings;
         _EventSettings = EventSettings;
-        _slashSound = new Audio(_EventSettings.slashSoundSrc);
+        initSlashSound();
     }
 
     MouseEventHandler.prototype.mouseDown = function (event, mouseObj) {
@@ -20,37 +24,55 @@ define(function (require) {
             x: event.offsetX || event.layerX,
             y: event.offsetY || event.layerY
         });
-        //console.log(mouseObj.isMouseDown);
+    };
+
+    function initSlashSound() {
+        _slashSound = new Audio(_EventSettings.slashSoundSrc);
+    };
+
+    function startSlashSound() {
+        if (_slashSound.paused) {
+            _slashSound.currentTime = 0.3;
+            _slashSound.play();
+            return true;
+        }
+        return false;
+    };
+
+    function restartSlashSound() {
+        _slashSound.currentTime = 0.3;
+        if (_slashSound.paused) {
+            _slashSound.play();
+        }
+    };
+
+    function stopSlashSound() {
+        _slashSound.pause();
     };
 
     MouseEventHandler.prototype.mouseUp = function (event, mouseObj) {
         mouseObj.isMouseDown = false;
         this.path = [];
-        _slashSound.pause();
-        _slashSound.currentTime = 0;
+        stopSlashSound();
         //console.log(mouseObj.isMouseDown);
     };
 
-    var timeoutID = null;
-
     function mouseMoveTimeOut(mouseObj) {
-        console.log('mtimeout 1');
         mouseObj.path.shift();
-        console.log('mtimeout 2');
         if (mouseObj.path.length != 0)
-            timeoutID = setTimeout(function () {
+            _timeoutID = setTimeout(function () {
                 mouseMoveTimeOut(mouseObj);
             }, 100);
         else
-            timeoutID = null;
+            _timeoutID = null;
     }
 
     MouseEventHandler.prototype.updateCoords = function (event, mouseObj, updateInterval) {
         if (mouseObj.isMouseDown) {
-            if (timeoutID !== null) {
-                clearTimeout(timeoutID);
+            if (_timeoutID !== null) {
+                clearTimeout(_timeoutID);
             }
-            timeoutID = setTimeout(function () {
+            _timeoutID = setTimeout(function () {
                 mouseMoveTimeOut(mouseObj);
             }, 100);
 
@@ -63,7 +85,29 @@ define(function (require) {
                 x: event.offsetX || event.layerX,
                 y: event.offsetY || event.layerY
             });
-            _slashSound.play();
+            if (startSlashSound()) {
+                //just started playing the sound, remember the position
+                _slashPosition = {
+                    x: event.layerX,
+                    y: event.layerY
+                };
+                _prevPosition = {
+                    x: event.layerX,
+                    y: event.layerY
+                };
+            } else {
+                //sound is alreasy playing
+                var slashVecX = event.layerX - _slashPosition.x,
+                    slashVecY = event.layerY - _slashPosition.y,
+                    moveX = event.layerX - _prevPosition.x,
+                    moveY = event.layerY - _prevPosition.y;
+                if (slashVecX * moveX + slashVecY * moveY < 0 && (Math.abs(moveX) + Math.abs(moveY)) > 32) {
+                    //changed slash direction
+                    restartSlashSound();
+                }
+                _prevPosition.x = event.layerX;
+                _prevPosition.y = event.layerY;
+            }
         }
     };
 
@@ -72,7 +116,7 @@ define(function (require) {
             throw {
                 message: 'Coordinates are not set yet',
                 name: 'NullCoordinatesException'
-            }
+            };
         }
 
         var coords = (function (x, y) {
@@ -82,7 +126,7 @@ define(function (require) {
             };
         })(this.x, this.y);
 
-        console.log(coords);
+        //console.log(coords);
 
         return coords;
     };
