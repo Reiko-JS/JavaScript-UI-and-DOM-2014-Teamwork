@@ -92,7 +92,6 @@ define(function (require) {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 
         for (var i = 0; i < newPhysicsFrames; i++) {
-            _currentAngle += 0.7;
             if (!animateFruits(context, fruitCollection, layerCenterY)) {
                 return false;
             }
@@ -104,6 +103,7 @@ define(function (require) {
     }
 
     function animateFruits(context, fruitCollection, layerCenterY) {
+        _currentAngle += 0.7;
         for (var i = 0; i < fruitCollection.length; i++) {
             var movedPoint = Utility.movePoint({
                 x: fruitCollection[i].x,

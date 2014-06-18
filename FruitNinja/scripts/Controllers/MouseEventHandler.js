@@ -104,6 +104,8 @@ define(function (require) {
                 if (slashVecX * moveX + slashVecY * moveY < 0 && (Math.abs(moveX) + Math.abs(moveY)) > 32) {
                     //changed slash direction
                     restartSlashSound();
+                    _slashPosition.x = event.layerX;
+                    _slashPosition.y = event.layerY;
                 }
                 _prevPosition.x = event.layerX;
                 _prevPosition.y = event.layerY;
