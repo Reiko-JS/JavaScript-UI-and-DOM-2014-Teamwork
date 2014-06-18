@@ -4,7 +4,6 @@ define(function (require) {
     var _EventSettings = null,
         _slashSound = null,
         _timeoutID = null,
-        _soundTimeoutID = null,
         _slashPosition = null,
         _prevPosition = null;
 
@@ -28,27 +27,27 @@ define(function (require) {
 
     function initSlashSound() {
         _slashSound = new Audio(_EventSettings.slashSoundSrc);
-    };
+    }
 
     function startSlashSound() {
         if (_slashSound.paused) {
-            _slashSound.currentTime = 0.3;
+            _slashSound.currentTime = 0;
             _slashSound.play();
             return true;
         }
         return false;
-    };
+    }
 
     function restartSlashSound() {
         _slashSound.currentTime = 0.3;
         if (_slashSound.paused) {
             _slashSound.play();
         }
-    };
+    }
 
     function stopSlashSound() {
         _slashSound.pause();
-    };
+    }
 
     MouseEventHandler.prototype.mouseUp = function (event, mouseObj) {
         mouseObj.isMouseDown = false;
