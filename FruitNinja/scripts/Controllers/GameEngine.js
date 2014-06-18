@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var ObjectDrawer = require('./ObjectDrawer.js'),
@@ -84,27 +84,25 @@ define(function(require) {
             }
         }
 
-        if (isDrawn !== false) {
-            window.requestAnimationFrame(updateCanvas);
-        }
-        else {
+        if (isDrawn === false) {
             _fruitsCollection = getRandomOfNumberFruits(_boundingBox);
         }
+        window.requestAnimationFrame(updateCanvas);
     }
 
     function attachMouseEvents() {
         // OnMouseMove
-        window.onmousemove = function(event) {
+        window.onmousemove = function (event) {
             _mouseEventHandler.updateCoords(event, _mouseEventHandler, 500);
         };
 
         // OnMouseDown
-        window.onmousedown = function(event) {
+        window.onmousedown = function (event) {
             _mouseEventHandler.mouseDown(event, _mouseEventHandler);
         };
 
         // OnMouseUp
-        window.onmouseup = function(event) {
+        window.onmouseup = function (event) {
             _mouseEventHandler.mouseUp(event, _mouseEventHandler);
         };
     }
@@ -114,16 +112,18 @@ define(function(require) {
     function endGame() {}
 
     // This function is public
-    GameEngine.prototype.isRunning = function(speedInMs) {
+    GameEngine.prototype.isRunning = function (speedInMs) {
         return _isRunning;
     };
 
     // This function is public
-    GameEngine.prototype.startGame = function(speedInMs) {
+    GameEngine.prototype.startGame = function (speedInMs) {
         if (!_isRunning) {
-            setInterval(function() {
+            /*setInterval(function() {
                 updateCanvas();
-            }, 2000);
+            }, 2000);*/
+
+            window.requestAnimationFrame(updateCanvas);
 
             _isRunning = true;
         }
