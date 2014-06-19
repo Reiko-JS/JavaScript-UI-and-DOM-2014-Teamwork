@@ -29,12 +29,14 @@ canvas#fruit-layer {
 }
 
 #exit-fullscreen {
+    position: absolute;
+    top:0;
     height: 30px;
 }
 
 #fullscreen {
     position: absolute;
-    top: 515px
+    top: 495px;
     width: 100px;
     height: 100px;
 }
