@@ -1,15 +1,19 @@
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var _gameEngine = null;
     var _EventSettings = null;
     var _startGameSound = null;
+    var _backgroundThemeSong = null;
+    var _isIE = null;
 
     // Constructor
     function EventListener(gameEngine, EventSettings) {
         _gameEngine = gameEngine;
         _EventSettings = EventSettings;
         _startGameSound = new Audio(_EventSettings.startGameSoundSrc);
+        _backgroundThemeSong = new Audio(_EventSettings.gameThemeSong);
+        _isIE = detectIE();
     }
 
     /// <summary>
@@ -19,21 +23,40 @@ define(function(require) {
         if (!_gameEngine.isRunning()) {
             _gameEngine.startGame();
 
-            var ua = window.navigator.userAgent;
-            var msie = ua.indexOf('MSIE');
-            var ie11 = ua.indexOf('Trident');
-
-            if (msie > 0 || ie11 > 0) {
-                $('<object/>')
-                    .attr('data', _EventSettings.startGameSoundSrc)
-                    .attr('type', 'audio/' + _EventSettings.startGameSoundSrc.split('.').pop())
-                    .hide()
-                    .append($('<embed/>').attr('src', _EventSettings.startGameSoundSrc))
-                    .appendTo('body');
+            if (_isIE) {
+                playMusicOnOldBrowsers(_EventSettings.startGameSoundSrc);
+                playMusicOnOldBrowsers(_EventSettings.gameThemeSong);
             } else {
                 _startGameSound.play();
+                loopMusic(_backgroundThemeSong);
             }
         }
+    }
+
+    function loopMusic(musicElement) {
+        musicElement.addEventListener('ended', function () {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
+        musicElement.play();
+    }
+
+    function playMusicOnOldBrowsers(src) {
+        $('<object/>')
+            .attr('data', src)
+            .attr('type', 'audio/' + src.split('.').pop())
+            .hide()
+            .append($('<embed/>').attr('src', src))
+            .appendTo('body');
+    }
+
+    function detectIE() {
+        var userAgent = window.navigator.userAgent;
+        var msie = userAgent.indexOf('MSIE');
+        var ie11 = userAgent.indexOf('Trident');
+        var isIE = msie > 0 || ie11 > 0;
+        return isIE;
     }
 
     /// <summary>
@@ -80,7 +103,7 @@ define(function(require) {
     }
 
     // Public function
-    EventListener.prototype.setButtonEvents = function(gameEngine) {
+    EventListener.prototype.setButtonEvents = function (gameEngine) {
         // On Start button click - starts the game
         $(_EventSettings.startGameButtonId).on('click', function () {
             startGame();
@@ -88,7 +111,7 @@ define(function(require) {
         });
 
         // Start fullscreen mode Button
-        $(_EventSettings.toggleFullscreenButtonId).on('click', function() {
+        $(_EventSettings.toggleFullscreenButtonId).on('click', function () {
             if (tryToggleFullscreenMode()) {
                 resizeFieldOnToggleFullScreenMode($(this), _EventSettings.exitFullscreenButtonId, true);
             }
@@ -98,7 +121,7 @@ define(function(require) {
         });
 
         // Exit from fullscreen mode Button
-        $(_EventSettings.exitFullscreenButtonId).on('click', function() {
+        $(_EventSettings.exitFullscreenButtonId).on('click', function () {
             if (tryExitFullscreen()) {
                 resizeFieldOnToggleFullScreenMode($(this), _EventSettings.toggleFullscreenButtonId, false);
             }
