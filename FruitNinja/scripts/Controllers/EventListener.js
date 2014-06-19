@@ -12,7 +12,9 @@ define(function (require) {
         _gameEngine = gameEngine;
         _EventSettings = EventSettings;
         _startGameSound = new Audio(_EventSettings.startGameSoundSrc);
+        _startGameSound.volume = 1;
         _backgroundThemeSong = new Audio(_EventSettings.gameThemeSong);
+        _backgroundThemeSong.volume = 0.8;
         _isIE = detectIE();
     }
 
